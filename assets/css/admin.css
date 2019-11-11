@@ -1,0 +1,66 @@
+.WpPerDim table.form-table input.regular-input, 
+.WpPerDim table.form-table input[type=date], 
+.WpPerDim table.form-table input[type=datetime-local], 
+.WpPerDim table.form-table input[type=datetime], 
+.WpPerDim table.form-table input[type=email], 
+.WpPerDim table.form-table input[type=number], 
+.WpPerDim table.form-table input[type=password], 
+.WpPerDim table.form-table input[type=tel], 
+.WpPerDim table.form-table input[type=text], 
+.WpPerDim table.form-table input[type=time], 
+.WpPerDim table.form-table input[type=url], 
+.WpPerDim table.form-table input[type=week], 
+.WpPerDim table.form-table textarea {
+    width: 400px;
+    margin: 0;
+    padding: 6px;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+.WpPerDim table.form-table input[type=email], 
+.WpPerDim table.form-table input[type=number], 
+.WpPerDim table.form-table input[type=text] {
+    height: auto;
+}
+.WpPerDim-wrap {
+    position: relative;
+    margin: 25px 40px 0 20px;
+    max-width: 1050px;
+    font-size: 15px;
+}
+.WpPerDim-wrap h1 {
+    margin: .2em 200px 0 0;
+    padding: 0;
+    color: #32373c;
+    line-height: 1.2;
+    font-size: 2.8em;
+    font-weight: 400;
+}
+.WpPerDim-wrap h2 {
+    margin: 20px 0 .6em;
+    line-height: 1.3;
+    font-weight: 300;
+    font-size: 2.2em;
+    text-align: left;
+}
+.WpPerDim-wrap .about-text {
+    margin: 1em 200px 1em 0;
+    color: #555d66;
+}
+.WpPerDim-wrap .about-description, .WpPerDim-wrap .about-text {
+    margin-top: 1.4em;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 19px;
+}
+.WpPerDim-notice{
+    padding: 30px;
+    background: #fff;
+    margin: 0px 0px 30px;
+}
+
+th#wpseo-title, th#wpseo-metadesc, th#wpseo-focuskw, 
+th.manage-column.column-wpseo-title, th.manage-column.column-wpseo-metadesc, th.manage-column.column-wpseo-focuskw,
+td.wpseo-title.column-wpseo-title, td.wpseo-metadesc.column-wpseo-metadesc, td.wpseo-focuskw.column-wpseo-focuskw {
+    display: none;
+}

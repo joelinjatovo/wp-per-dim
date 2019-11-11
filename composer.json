@@ -1,0 +1,16 @@
+{
+    "name": "wpperdim/fta",
+    "description": "Plateforme de jeu",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "JOELINJATOVO Haja",
+            "email": "joelinjatovo@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WpPerDim\\": "src/WpPerDim/"
+        }
+    }
+}
