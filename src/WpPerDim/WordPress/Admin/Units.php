@@ -1,6 +1,8 @@
 <?php
 namespace WpPerDim\WordPress\Admin;
 
+use WpPerDim\Models\App\Unit;
+
 /**
  * Units
  *
@@ -15,7 +17,7 @@ class Units extends WelcomePage{
 	 */
 	public function __construct() {
 		$this->id    = 'wppd-units';
-		$this->label = __( 'Units List', 'wppd' );
+		$this->label = __( 'Unités', 'wppd' );
 		parent::__construct();
 	}
 
@@ -23,7 +25,36 @@ class Units extends WelcomePage{
      * Show list
      */
     public function output() {
-        include WPPD_DIR . '/template/admin/units.php';
+        $action = null;
+        if( isset($_GET['action']) ) {
+            $action = $_GET['action'];
+        }
+        
+        switch($action){
+            case 'create':
+            case 'edit':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Unit::find($id);
+                }
+                if(!$model){ $model = new Unit(); }
+                
+                $template = WPPD_DIR . '/template/admin/unit/create.php';
+                break;
+            case 'show':
+                $template = WPPD_DIR . '/template/admin/unit/show.php';
+                break;
+            default:
+                $models = Unit::getAll();
+                $template = WPPD_DIR . '/template/admin/unit/list.php';
+                break;
+        }
+        
+        if( file_exists( $template ) ) {
+            include( $template );
+        }
     }
 
     /**
@@ -31,25 +62,30 @@ class Units extends WelcomePage{
      * Override
      */
     public function save() {
-        $languages = [];
-        $en = Welcome::get_post('wppd_en_sync', '');
-        if( ! empty($en)){
-            $languages[] = 'en';
+        $action = null;
+        if( isset($_GET['action']) ) {
+            $action = $_GET['action'];
         }
         
-        $fr = Welcome::get_post('wppd_fr_sync', '');
-        if( ! empty($fr)){
-            $languages[] = 'fr';
-        }
-        
-        if( count( $languages ) == 0 ){
-            Welcome::add_error( __( 'No catalog language selected.', 'nexway' ) );
-            return;
-        }
-        
-        $has_post = false;
-        if( $has_post === false ) {
-            Welcome::add_error( __( 'No catalog type selected [full|software|game].', 'nexway' ) );
+        switch($action){
+            case 'create':
+            case 'edit':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Unit::find($id);
+                }
+                if(!$model){ $model = new Unit(); }
+                
+                if(isset($_POST['unit-title'])){
+                    $model->title = $_POST['unit-title'];
+                    $model->label = $_POST['unit-label'];
+                    $model->save();
+                    Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
+                }
+                
+                break;
         }
     }
 }

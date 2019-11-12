@@ -31,7 +31,7 @@ class Menus implements HooksInterface{
     }
     
     public function units_menu(){
-        $page = add_submenu_page('wppd', __( 'List: Units', 'wppd' ) , __( 'List: Units', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
+        $page = add_submenu_page('wppd', __( 'List: Units', 'wppd' ) , __( 'Unités', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
         add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
