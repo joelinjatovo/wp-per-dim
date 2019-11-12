@@ -38,11 +38,8 @@ class Welcome{
             $welcomes = array();
             
             $welcomes[] = new Dashboard();
-            $welcomes[] = new SyncProduct();
-            $welcomes[] = new SyncWooProduct();
-            $welcomes[] = new XmlImport();
 
-            self::$welcomes = apply_filters( 'WpPerDim_get_welcomes_pages', $welcomes );
+            self::$welcomes = apply_filters( 'wppd_get_welcomes_pages', $welcomes );
         }
 
         return self::$welcomes;
@@ -54,16 +51,16 @@ class Welcome{
     public static function save() {
         global $current_page;
 
-        check_admin_referer( 'WpPerDim-welcomes' );
+        check_admin_referer( 'wppd-welcomes' );
 
         // Trigger actions.
-        do_action( 'WpPerDim_welcomes_save_' . $current_page );
-        do_action( 'WpPerDim_post_welcomes_' . $current_page );
-        do_action( 'WpPerDim_post_welcomes' );
+        do_action( 'wppd_welcomes_save_' . $current_page );
+        do_action( 'wppd_post_welcomes_' . $current_page );
+        do_action( 'wppd_post_welcomes' );
 
         //self::add_message( __( 'Your request has been executed.', 'WpPerDim' ) );
 
-        do_action( 'WpPerDim_welcomes_posted' );
+        do_action( 'wppd_welcomes_posted' );
     }
 
     /**
@@ -108,9 +105,9 @@ class Welcome{
         global $current_page;
         
         // Get tabs for the welcomes page.
-        $tabs = apply_filters('WpPerDim_welcomes_tabs_array', []);
+        $tabs = apply_filters('wppd_welcomes_tabs_array', []);
         
-        include NXW_DIR . '/template/admin/welcome.php';
+        include WPPD_DIR . '/template/admin/welcome.php';
     }
 
     /**
@@ -183,18 +180,18 @@ class Welcome{
                     }
                     echo '<div class="col">' . "\n\n";
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) );
                     }
                     break;
 
                 // Section Ends.
                 case 'sectionend':
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
                     }
                     echo '</div>';
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
                     }
                     break;
 
@@ -202,7 +199,7 @@ class Welcome{
                 case 'table-start':
                     echo '<table class="form-table">' . "\n\n";
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) );
                     }
                     break;
 
@@ -210,30 +207,30 @@ class Welcome{
                 case 'table-end':
                     echo '</table>' . "\n\n";
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) );
                     }
                     break;
 
                 // Submit button.
                 case 'submit':
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
                     }
                     echo '<p class="submit">';
                         if ( empty( $GLOBALS['hide_save_button'] ) ) :
-                            echo '<button name="save" class="button-primary WpPerDim-save-button" type="submit" value="' . esc_html( $value['title'] ) . '">' . esc_html( $value['title'] ) . '</button>';
+                            echo '<button name="save" class="button-primary wppd-save-button" type="submit" value="' . esc_html( $value['title'] ) . '">' . esc_html( $value['title'] ) . '</button>';
                         endif;
-                        wp_nonce_field( 'WpPerDim-welcomes' );
+                        wp_nonce_field( 'wppd-welcomes' );
                     echo '</p>';
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
                     }
                     break;
 
                 // Notice paragraphe
                 case 'notice':
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
                         echo '<div class="' . esc_attr( $value['class'] ) . '">' . "\n\n";
                             if ( ! empty( $value['title'] ) ) {
                                 echo '<h3>' . esc_html( $value['title'] ) . '</h3>';
@@ -244,14 +241,14 @@ class Welcome{
                                 echo '</p>';
                             }
                         echo '</div>';
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
                     }
                     break;
 
                 // Notice paragraphe
                 case 'file':
                     if ( ! empty( $value['id'] ) ) {
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_end' );
                         ?>
                         <tr valign="top" class="titledesc">
                             <th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?></th>
@@ -262,7 +259,7 @@ class Welcome{
                             </td>
                         </tr>
                         <?php
-                        do_action( 'WpPerDim_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
+                        do_action( 'wppd_welcomes_' . sanitize_title( $value['id'] ) . '_after' );
                     }
                     break;
 

@@ -14,8 +14,8 @@ class Dashboard extends WelcomePage {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id    = 'WpPerDim';
-		$this->label = __( 'Welcome', 'WpPerDim' );
+		$this->id    = 'wppd';
+		$this->label = __( 'Welcome', 'wppd' );
 		parent::__construct();
 	}
 
@@ -32,27 +32,27 @@ class Dashboard extends WelcomePage {
 
 				array(
 					'type'  => 'title',
-					'title' => __( 'Dashboard', 'WpPerDim' ),
-					'desc'  => __( 'Description', 'WpPerDim' ),
-					'id'    => 'nxw_dashboard',
+					'title' => __( 'Dashboard', 'wppd' ),
+					'desc'  => __( 'Description', 'wppd' ),
+					'id'    => 'wppd_dashboard',
 				),
 
 				array(
 					'type'  => 'notice',
-					'class' => 'WpPerDim-notice WpPerDim-notice-important',
+					'class' => 'wppd-notice wppd-notice-important',
 					//'title' => __( 'Important', 'WpPerDim' ),
-					'desc'  => __( 'Notice', 'woocommerce' ),
+					'desc'  => __( 'Notice', 'wppd' ),
 					'id'    => 'dashboard-notice',
 				),
 
 				array(
 					'type' => 'sectionend',
-					'id'   => 'nxw_dashboard',
+					'id'   => 'wppd_dashboard',
 				),
 
 			)
 		);
 
-		return apply_filters( 'WpPerDim_get_welcomes_' . $this->id, $welcomes );
+		return apply_filters( 'wppd_get_welcomes_' . $this->id, $welcomes );
 	}
 }

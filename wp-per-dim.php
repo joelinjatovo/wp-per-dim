@@ -31,7 +31,7 @@ $actions = array(
     */
     
     /** Admin Menu */
-    //new WpPerDim\WordPress\Admin\Menus(),
+    new WpPerDim\WordPress\Admin\Menus(),
 );
 
 $wppd = new WpPerDim\WpPerDim($actions);

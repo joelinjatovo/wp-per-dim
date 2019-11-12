@@ -14,7 +14,7 @@ class WelcomePage {
      *
      * @var string
      */
-    protected $id = '';
+    protected $id = 'wppd-welcome';
 
     /**
      * Welcome page label.
@@ -27,9 +27,9 @@ class WelcomePage {
      * Constructor.
      */
     public function __construct() {
-        add_filter( 'WpPerDim_welcomes_tabs_array', array( $this, 'add_welcomes_page' ), 20 );
-        add_action( 'WpPerDim_welcomes_' . $this->id, array( $this, 'output' ) );
-        add_action( 'WpPerDim_welcomes_save_' . $this->id, array( $this, 'save' ) );
+        add_filter( 'wppd_welcomes_tabs_array', array( $this, 'add_welcomes_page' ), 20 );
+        add_action( 'wppd_welcomes_' . $this->id, array( $this, 'output' ) );
+        add_action( 'wppd_welcomes_save_' . $this->id, array( $this, 'save' ) );
     }
 
     /**
@@ -51,7 +51,7 @@ class WelcomePage {
      * @return array
      */
     public function get_welcomes() {
-        return apply_filters( 'WpPerDim_get_welcomes_' . $this->id, array() );
+        return apply_filters( 'wppd_get_welcomes_' . $this->id, array() );
     }
 
     /**
