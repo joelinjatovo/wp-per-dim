@@ -27,7 +27,7 @@ class Dashboard extends WelcomePage {
 	public function get_welcomes() {
 
 		$welcomes = apply_filters(
-			'WpPerDim_dashboard_welcomes',
+			'wppd_dashboard_welcomes',
 			array(
 
 				array(

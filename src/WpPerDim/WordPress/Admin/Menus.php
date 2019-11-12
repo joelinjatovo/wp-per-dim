@@ -18,15 +18,21 @@ class Menus implements HooksInterface{
     public function hooks(){
         add_action( "admin_menu", array($this, 'admin_menu') );
         add_action( "admin_menu", array($this, 'dashboard_menu') );
+        add_action( "admin_menu", array($this, 'units_menu') );
     }
     
     public function admin_menu(){
-        add_menu_page( __( 'WpPerDim', 'wppd' ) , __( 'WpPerDim', 'wppd' ), 'manage_options', 'wppd', null, plugins_url( 'WpPerDim/assets/images/icon.png' ), 2);
+        add_menu_page( __( 'WpPerDim', 'wppd' ) , __( 'WpPerDim', 'wppd' ), 'manage_options', 'wppd', null, plugins_url( 'wp-per-dim/assets/images/icon.png' ), 2);
     }
     
     public function dashboard_menu(){
-        $welcome_page = add_submenu_page('WpPerDim', __( 'Welcome to WpPerDim', 'wppd' ) , __( 'Welcome', 'wppd' ), 'manage_options', 'wppd', array($this, "welcome_page"), null, 0);
+        $welcome_page = add_submenu_page('wppd', __( 'Welcome to WpPerDim', 'wppd' ) , __( 'Welcome', 'wppd' ), 'manage_options', 'wppd', array($this, "welcome_page"), null, 0);
         add_action( 'load-' . $welcome_page, array( $this, 'welcome_page_init' ) );
+    }
+    
+    public function units_menu(){
+        $page = add_submenu_page('wppd', __( 'List: Units', 'wppd' ) , __( 'List: Units', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
+        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
 	/**
@@ -59,6 +65,10 @@ class Menus implements HooksInterface{
 	}
     
     public function welcome_page(){
+        Welcome::output();
+    }
+    
+    public function units_page(){
         Welcome::output();
     }
 }

@@ -38,6 +38,7 @@ class Welcome{
             $welcomes = array();
             
             $welcomes[] = new Dashboard();
+            $welcomes[] = new Units();
 
             self::$welcomes = apply_filters( 'wppd_get_welcomes_pages', $welcomes );
         }
@@ -161,7 +162,7 @@ class Welcome{
             }
             
             // Description handling.
-            $field_description = Settings::get_field_description( $value );
+            $field_description = Welcome::get_field_description( $value );
             $description       = $field_description['description'];
             $tooltip_html      = $field_description['tooltip_html'];
 
@@ -422,5 +423,46 @@ class Welcome{
      */
     public static function save_fields( $options, $data = null ) {
         return true;
+    }
+
+    /**
+     * Helper function to get the formatted description and tip HTML for a
+     * given form field. Plugins can call this when implementing their own custom
+     * settings types.
+     *
+     * @param  array $value The form field value array.
+     * @return array The description and tip as a 2 element array.
+     */
+    public static function get_field_description( $value ) {
+        $description  = '';
+        $tooltip_html = '';
+
+        if ( true === $value['desc_tip'] ) {
+            $tooltip_html = $value['desc'];
+        } elseif ( ! empty( $value['desc_tip'] ) ) {
+            $description  = $value['desc'];
+            $tooltip_html = $value['desc_tip'];
+        } elseif ( ! empty( $value['desc'] ) ) {
+            $description = $value['desc'];
+        }
+
+        if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ), true ) ) {
+            $description = '<p style="margin-top:0">' . wp_kses_post( $description ) . '</p>';
+        } elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+            $description = wp_kses_post( $description );
+        } elseif ( $description ) {
+            $description = '<span class="description">' . wp_kses_post( $description ) . '</span>';
+        }
+
+        if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+            $tooltip_html = '<p class="description">' . $tooltip_html . '</p>';
+        } elseif ( $tooltip_html ) {
+            $tooltip_html = wc_help_tip( $tooltip_html );
+        }
+
+        return array(
+            'description'  => $description,
+            'tooltip_html' => $tooltip_html,
+        );
     }
 }
