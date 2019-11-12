@@ -1,10 +1,4 @@
 <?php
-/**
- * Admin View: Dashboard
- *
- * @package WooCommerce
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -33,19 +27,54 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
         <div class="form-field term-parent-wrap">
             <label for="indicator-unit">Unité de mesure de l'indicateur</label>
-                <select name="indicator-unit" id="indicator-init" class="postform" style="min-width: 300px;">
-                    <option value="-1">Aucun</option>
-                    <option class="level-0" value="1">Non classé</option>
-                </select>
-                <p></p>
+            <select name="indicator-unit" id="indicator-init" class="postform" style="min-width: 300px;">
+                <option value="-1">Aucun</option>
+                <?php foreach($units as $unit): ?>
+                    <option class="level-0" value="<?php echo $unit->id; ?>" <?php selected($unit->id, $model->unit_id, true); ?> ><?php echo $unit->title; ?> ( <?php echo $unit->label; ?> )</option>
+                <?php endforeach; ?>
+            </select>
+            <p></p>
+        </div>
+        <div class="form-field term-parent-wrap">
+            <label for="indicator-unit">Periode de suivi de l'indicateur</label>
+            <div class="repeatable-wrapper">
+                <div class="repeatable">
+                    <table class="wrapper" width="100%">
+                        <tbody class="container">
+                            <tr class="template row">
+                                <td width="80%">
+                                    <input type="hidden" name="indicator-periods[{{row-count-placeholder}}][id]" />
+                                    <input type="text" name="indicator-periods[{{row-count-placeholder}}][title]" />
+                                </td>
+                                <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                            </tr>
+                            <?php foreach($model->getPeriods() as $key => $period): ?>
+                                <tr class="row">
+                                    <td width="80%">
+                                        <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
+                                        <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
+                                    </td>
+                                    <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td width="10%" colspan="3"><span class="add">Ajouter</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <p></p>
         </div>
         <div class="form-field term-parent-wrap">
             <label for="indicator-graph">Type de graphe de l'indicateur</label>
-                <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
-                    <option value="-1">Aucun</option>
-                    <option class="level-0" value="1">Non classé</option>
-                </select>
-                <p></p>
+            <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
+                <option value="-1">Aucun</option>
+                <option class="level-0" value="1">Non classé</option>
+            </select>
+            <p></p>
         </div>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>

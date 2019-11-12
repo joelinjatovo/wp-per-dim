@@ -21,7 +21,6 @@ class Ajax implements HooksInterface{
         global $WpPerDim;
         $controller = new AjaxController($WpPerDim->view);
 
-        // send order details
-        add_action('wp_ajax_resend_order_email', array($controller, 'resendOrderEmail'));
+        add_action('wp_ajax_select_indicator', array($controller, 'selectIndicator'));
     }
 }

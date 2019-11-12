@@ -1,10 +1,4 @@
 <?php
-/**
- * Admin View: Dashboard
- *
- * @package WooCommerce
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

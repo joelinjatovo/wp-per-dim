@@ -33,4 +33,15 @@ class Result extends BaseModel{
         'period_id',
     ];
     
+    public function getPeriod(){
+        global $wpdb;
+        $table_name = $wpdb->prefix.Period::getTable();
+        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `period_id` = %d;", [$this->period_id]);
+        $result = $wpdb->get_row($sql);
+        if( $result ) {
+            return Period::fromWp($result);
+        }
+        return null;
+    }
+    
 }

@@ -2,6 +2,8 @@
 namespace WpPerDim\WordPress\Admin;
 
 use WpPerDim\Models\App\Indicator;
+use WpPerDim\Models\App\Period;
+use WpPerDim\Models\App\Unit;
 
 /**
  * Indicators
@@ -40,6 +42,7 @@ class Indicators extends WelcomePage{
                     $model = Indicator::find($id);
                 }
                 if(!$model){ $model = new Indicator(); }
+                $units = Unit::getAll();
                 
                 $template = WPPD_DIR . '/template/admin/indicator/create.php';
                 break;
@@ -84,6 +87,30 @@ class Indicators extends WelcomePage{
                     $model->unit_id = $_POST['indicator-unit'];
                     $model->graph = $_POST['indicator-graph'];
                     $model->save();
+                    
+                    if(isset($_POST['indicator-periods']) && is_array($_POST['indicator-periods']) ){
+                        $news = [];
+                        $periods = $_POST['indicator-periods'];
+                        foreach($periods as $key => $value){
+                            if( is_array($value) && isset($value['id']) && isset($value['title'])) {
+                                $period = Period::find((int) $value['id']);
+                                if( ! $period ) {
+                                    $period = new Period();
+                                    $period->indicator_id = $model->getPkValue();
+                                }
+                                $period->order = (int) $key;
+                                $period->title = $value['title'];
+                                $period->save();
+                                
+                                $news[] = $period->getPkValue();
+                            }
+                        }
+                        
+                        global $wpdb;
+                        $table_name = $wpdb->prefix.Period::getTable();
+                        $ids = implode( ',', array_map( 'absint', $news ) );
+                        $wpdb->query( "DELETE FROM $table_name WHERE `indicator_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
+                    }
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }
                 

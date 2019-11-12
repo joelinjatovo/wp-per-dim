@@ -2,6 +2,8 @@
 namespace WpPerDim\WordPress\Admin;
 
 use WpPerDim\Models\App\Report;
+use WpPerDim\Models\App\Indicator;
+use WpPerDim\Models\App\Result;
 
 /**
  * Datas
@@ -40,6 +42,7 @@ class Datas extends WelcomePage{
                     $model = Report::find($id);
                 }
                 if(!$model){ $model = new Report(); }
+                $indicators = Indicator::getAll();
                 
                 $template = WPPD_DIR . '/template/admin/report/create.php';
                 break;
@@ -78,9 +81,36 @@ class Datas extends WelcomePage{
                 }
                 if(!$model){ $model = new Report(); }
                 
-                if(isset($_POST['report-title'])){
-                    $model->title = $_POST['report-title'];
+                if(isset($_POST['report-indicator'])){
+                    $model->link = $_POST['report-link'];
+                    $model->type = $_POST['report-type'];
+                    $model->indicator_id = $_POST['report-indicator'];
                     $model->save();
+                    
+                    
+                    if(isset($_POST['report-results']) && is_array($_POST['report-results']) ){
+                        $news = [];
+                        $results = $_POST['report-results'];
+                        foreach($results as $key => $value){
+                            if( is_array($value) && isset($value['id']) && isset($value['period']) && isset($value['value'])) {
+                                $result = Result::find((int) $value['id']);
+                                if( ! $result ) {
+                                    $result = new Result();
+                                    $result->period_id = $value['period'];
+                                    $result->report_id = $model->getPkValue();
+                                }
+                                $result->value = $value['value'];
+                                $result->save();
+                                
+                                $news[] = $period->getPkValue();
+                            }
+                        }
+                        
+                        global $wpdb;
+                        $table_name = $wpdb->prefix.Period::getTable();
+                        $ids = implode( ',', array_map( 'absint', $news ) );
+                        $wpdb->query( "DELETE FROM $table_name WHERE `indicator_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
+                    }
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }
                 

@@ -24,16 +24,12 @@ class Style implements HooksInterface{
     }
     
     public function front_style(){
-        $base_url = plugins_url();
-        
-        wp_register_style('wppd.style.css', $base_url . "/wp-per-dim/assets/css/style.css");
+        wp_register_style('wppd.style.css', WPPD_URL . "assets/css/style.css");
         wp_enqueue_style('wppd.style.css');
     }
     
     public function admin_style(){
-        $base_url = plugins_url();
-        
-        wp_register_style('wppd.admin.css', $base_url . "/wp-per-dim/assets/css/admin.css");
+        wp_register_style('wppd.admin.css', WPPD_URL . "assets/css/admin.css");
         wp_enqueue_style('wppd.admin.css');
     }
 }

@@ -75,6 +75,7 @@ class Database{
             `id`           BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
             `title`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `value`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `report_id` BIGINT(20),
             `period_id` BIGINT(20),
             INDEX (`period_id`)
         );";

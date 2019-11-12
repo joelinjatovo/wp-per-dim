@@ -11,6 +11,7 @@ require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 if(!defined('WPPD_DIR'))    define('WPPD_DIR', plugin_dir_path(__FILE__));
 if(!defined('WPPD_FILE'))   define('WPPD_FILE', __FILE__);
+if(!defined('WPPD_URL'))    define('WPPD_URL', plugin_dir_url(__FILE__));
 
 require_once('functions.php');
 

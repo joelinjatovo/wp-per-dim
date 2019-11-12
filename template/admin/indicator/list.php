@@ -1,10 +1,4 @@
 <?php
-/**
- * Admin View: Dashboard
- *
- * @package WooCommerce
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -57,7 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»"><?php echo $model->title; ?></a></strong><br>
                                 <div class="row-actions">
                                     <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
-                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a></span>
+                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a> | </span>
+                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=show&action=create&indicator_id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Ajouter donnée «&nbsp;<?php echo $model->title; ?>&nbsp;»">Ajouter donnée</a></span>
                                 </div>
                             </td>
                             <td class="description column-description" data-colname="Description"><?php echo $model->description; ?></td>
