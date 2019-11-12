@@ -19,6 +19,8 @@ class Menus implements HooksInterface{
         add_action( "admin_menu", array($this, 'admin_menu') );
         add_action( "admin_menu", array($this, 'dashboard_menu') );
         add_action( "admin_menu", array($this, 'units_menu') );
+        add_action( "admin_menu", array($this, 'indicators_menu') );
+        add_action( "admin_menu", array($this, 'datas_menu') );
     }
     
     public function admin_menu(){
@@ -31,7 +33,17 @@ class Menus implements HooksInterface{
     }
     
     public function units_menu(){
-        $page = add_submenu_page('wppd', __( 'List: Units', 'wppd' ) , __( 'Unités', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
+        $page = add_submenu_page('wppd', __( 'Liste: Unités', 'wppd' ) , __( 'Unités', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
+        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
+    }
+    
+    public function indicators_menu(){
+        $page = add_submenu_page('wppd', __( 'Liste: Indicateurs', 'wppd' ) , __( 'Indicateurs', 'wppd' ), 'manage_options', 'wppd-indicators', array($this, "indicators_page"), null, 0);
+        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
+    }
+    
+    public function datas_menu(){
+        $page = add_submenu_page('wppd', __( 'Liste: Données', 'wppd' ) , __( 'Données', 'wppd' ), 'manage_options', 'wppd-datas', array($this, "datas_page"), null, 0);
         add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
@@ -69,6 +81,14 @@ class Menus implements HooksInterface{
     }
     
     public function units_page(){
+        Welcome::output();
+    }
+    
+    public function indicators_page(){
+        Welcome::output();
+    }
+    
+    public function datas_page(){
         Welcome::output();
     }
 }

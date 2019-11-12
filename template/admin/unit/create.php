@@ -14,10 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     <form method="post" id="mainform" action="" enctype="multipart/form-data">
         <?php wp_nonce_field( 'wppd-welcomes' ); ?>
         <?php if( $model && ( $model->getPkValue() > 0 ) ) : ?>
-            <h1><?php echo __( 'Modifier une unité', 'wppd' ); ?></h1>
+            <h1 class="wp-heading-inline"><?php echo __( 'Modifier une unité', 'wppd' ); ?></h1>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=create' ) ); ?>" class="page-title-action">Ajouter</a>
         <?php else: ?>
-            <h1><?php echo __( 'Ajouter une unité', 'wppd' ); ?></h1>
+            <h1 class="wp-heading-inline"><?php echo __( 'Ajouter une unité', 'wppd' ); ?></h1>
         <?php endif; ?>
+        <hr class="wp-header-end">
         
         <div class="form-field form-required term-name-wrap">
             <label for="unit-title">Titre de l'unité</label>

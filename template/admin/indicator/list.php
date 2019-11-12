@@ -10,9 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="wrap nexway-wrap">
-    <h1 class="wp-heading-inline"><?php echo __( 'Liste des unités', 'wppd' ); ?></h1>
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=create' ) ); ?>" class="page-title-action">Ajouter</a>
+    <h1 class="wp-heading-inline"><?php echo __( 'Liste des indicateurs', 'wppd' ); ?></h1>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=create' ) ); ?>" class="page-title-action">Ajouter</a>
     <hr class="wp-header-end">
+
     <div class="about-text"></div>
     <div class="col-wrap">
         <form id="posts-filter" method="post">
@@ -40,24 +41,28 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <tr>
                         <td id="cb" class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-1">Tout sélectionner</label><input id="cb-select-all-1" type="checkbox"></td>
                         <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a href=""><span>Titre</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="slug" class="manage-column column-slug sortable desc"><a href=""><span>Libellé</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="description" class="manage-column column-description sortable desc"><a href=""><span>Description</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="unit" class="manage-column column-unit sortable desc"><a href=""><span>Unité</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="graph" class="manage-column column-graph sortable desc"><a href=""><span>Graphe</span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="posts" class="manage-column column-posts num sortable desc"><a href=""><span>Total</span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
 
                 <tbody id="the-list" data-wp-lists="list:tag">
                     <?php foreach($models as $item): ?>
-                        <?php $model = \WpPerDim\Models\App\Unit::fromWp($item); ?>
+                        <?php $model = \WpPerDim\Models\App\Indicator::fromWp($item); ?>
                         <tr id="tag-<?php echo $model->getPkValue(); ?>" class="level-0">
                             <th scope="row" class="check-column">&nbsp;</th>
                             <td class="name column-name has-row-actions column-primary" data-colname="Titre"><strong>
-                                <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»"><?php echo $model->title; ?></a></strong><br>
+                                <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»"><?php echo $model->title; ?></a></strong><br>
                                 <div class="row-actions">
-                                    <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
-                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a></span>
+                                    <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
+                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a></span>
                                 </div>
                             </td>
-                            <td class="slug column-slug" data-colname="Libellé"><?php echo $model->label; ?></td>
+                            <td class="description column-description" data-colname="Description"><?php echo $model->description; ?></td>
+                            <td class="unit column-unit" data-colname="Unité"><?php echo $model->description; ?></td>
+                            <td class="graph column-graph" data-colname="Graphe"><?php echo $model->graph; ?></td>
                             <td class="posts column-posts" data-colname="Total"><a href="">1</a></td>
                         </tr>
                     <?php endforeach; ?>
@@ -67,7 +72,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <tr>
                         <td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2">Tout sélectionner</label><input id="cb-select-all-2" type="checkbox"></td>
                         <th scope="col" class="manage-column column-name column-primary sortable desc"><a href=""><span>Titre</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span>Libellé</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-description sortable desc"><a href=""><span>Description</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-unit sortable desc"><a href=""><span>Unité</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-graph sortable desc"><a href=""><span>Graphe</span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-posts num sortable desc"><a href=""><span>Total</span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>

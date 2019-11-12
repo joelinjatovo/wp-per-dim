@@ -39,6 +39,8 @@ class Welcome{
             
             $welcomes[] = new Dashboard();
             $welcomes[] = new Units();
+            $welcomes[] = new Indicators();
+            $welcomes[] = new Datas();
 
             self::$welcomes = apply_filters( 'wppd_get_welcomes_pages', $welcomes );
         }

@@ -1,23 +1,23 @@
 <?php
 namespace WpPerDim\WordPress\Admin;
 
-use WpPerDim\Models\App\Indicator;
+use WpPerDim\Models\App\Report;
 
 /**
- * Indicators
+ * Datas
  *
  * @author JOELINJATOVO Haja
  * @version 1.0.0
  * @since 1.0.0
  */
-class Indicators extends WelcomePage{
+class Datas extends WelcomePage{
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id    = 'wppd-indicators';
-		$this->label = __( 'Indicateurs', 'wppd' );
+		$this->id    = 'wppd-datas';
+		$this->label = __( 'Données', 'wppd' );
 		parent::__construct();
 	}
 
@@ -37,18 +37,18 @@ class Indicators extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Report::find($id);
                 }
-                if(!$model){ $model = new Indicator(); }
+                if(!$model){ $model = new Report(); }
                 
-                $template = WPPD_DIR . '/template/admin/indicator/create.php';
+                $template = WPPD_DIR . '/template/admin/report/create.php';
                 break;
             case 'show':
-                $template = WPPD_DIR . '/template/admin/indicator/show.php';
+                $template = WPPD_DIR . '/template/admin/report/show.php';
                 break;
             default:
-                $models = Indicator::getAll();
-                $template = WPPD_DIR . '/template/admin/indicator/list.php';
+                $models = Report::getAll();
+                $template = WPPD_DIR . '/template/admin/report/list.php';
                 break;
         }
         
@@ -74,15 +74,12 @@ class Indicators extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Report::find($id);
                 }
-                if(!$model){ $model = new Indicator(); }
+                if(!$model){ $model = new Report(); }
                 
-                if(isset($_POST['indicator-title'])){
-                    $model->title = $_POST['indicator-title'];
-                    $model->description = $_POST['indicator-description'];
-                    $model->unit_id = $_POST['indicator-unit'];
-                    $model->graph = $_POST['indicator-graph'];
+                if(isset($_POST['report-title'])){
+                    $model->title = $_POST['report-title'];
                     $model->save();
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }
