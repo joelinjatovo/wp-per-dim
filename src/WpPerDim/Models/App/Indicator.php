@@ -34,6 +34,23 @@ class Indicator extends BaseModel{
         'unit_id',
     ];
     
+    /**
+    * delete item
+    */
+    public function delete(){
+        foreach($this->getPeriods() as $period){
+            $period->delete(); 
+        }
+        foreach($this->getReports() as $report){
+            $report->delete(); 
+        }
+        parent::delete();
+    }
+    
+    public function getUnit(){
+        return Unit::find((int) $this->unit_id);
+    }
+    
     public function getPeriods(){
         global $wpdb;
         $table_name = $wpdb->prefix.Period::getTable();
@@ -43,6 +60,22 @@ class Indicator extends BaseModel{
             $output = [];
             foreach($results as $result){
                 $output[] = Period::fromWp($result);
+            }
+            return $output;
+        }else{
+            return [];
+        }
+    }
+    
+    public function getReports(){
+        global $wpdb;
+        $table_name = $wpdb->prefix.Report::getTable();
+        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `indicator_id` = %d;", [$this->getPkValue()]);
+        $results = $wpdb->get_results($sql);
+        if(is_array($results)){
+            $output = [];
+            foreach($results as $result){
+                $output[] = Report::fromWp($result);
             }
             return $output;
         }else{

@@ -39,7 +39,7 @@ class AjaxController extends BaseController{
                 foreach($report->getResults() as $key => $result){
                     ?>
                     <tr class="row">
-                        <td width="10%"><span class="period"><?php echo $period = $result->getPeriod()? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
+                        <td width="10%"><span class="period"><?php echo ( $period = $result->getPeriod() ) ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
                         <td width="80%">
                             <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
                             <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $result->period_id; ?>" />

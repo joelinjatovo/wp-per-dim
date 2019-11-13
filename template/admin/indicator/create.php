@@ -48,15 +48,26 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 </td>
                                 <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
                             </tr>
-                            <?php foreach($model->getPeriods() as $key => $period): ?>
+                            <?php $periods = $model->getPeriods(); ?>
+                            <?php if( count($periods) > 0 ): ?>
+                                <?php foreach($periods as $key => $period): ?>
+                                    <tr class="row">
+                                        <td width="80%">
+                                            <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
+                                            <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
+                                        </td>
+                                        <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
                                 <tr class="row">
                                     <td width="80%">
-                                        <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
-                                        <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
+                                        <input type="hidden" name="indicator-periods[0][id]" value="" />
+                                        <input type="text" name="indicator-periods[0][title]" value="" />
                                     </td>
                                     <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                         <tfoot>
                             <tr>

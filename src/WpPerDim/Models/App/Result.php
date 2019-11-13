@@ -31,17 +31,15 @@ class Result extends BaseModel{
         'title',
         'value',
         'period_id',
+        'report_id',
     ];
     
     public function getPeriod(){
-        global $wpdb;
-        $table_name = $wpdb->prefix.Period::getTable();
-        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `period_id` = %d;", [$this->period_id]);
-        $result = $wpdb->get_row($sql);
-        if( $result ) {
-            return Period::fromWp($result);
-        }
-        return null;
+        return Period::find((int) $this->period_id);
+    }
+    
+    public function getIndicator(){
+        return $this->getPeriod()?$this->getPeriod()->getIndicator():null;
     }
     
 }

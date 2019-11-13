@@ -47,10 +47,40 @@ class Indicators extends WelcomePage{
                 $template = WPPD_DIR . '/template/admin/indicator/create.php';
                 break;
             case 'show':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Indicator::find($id);
+                }
+                if(!$model){ $model = new Indicator(); }
                 $template = WPPD_DIR . '/template/admin/indicator/show.php';
                 break;
+            case 'delete':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Indicator::find($id);
+                    if($model){
+                        $model->delete(); 
+                    }
+                }
+                
+                /* render list */
+                $indicators = Indicator::getAll();
+                $models = [];
+                foreach($indicators as $indicator){
+                    $models[] = Indicator::fromWp($indicator);
+                }
+                $template = WPPD_DIR . '/template/admin/indicator/list.php';
+                break;
             default:
-                $models = Indicator::getAll();
+                $indicators = Indicator::getAll();
+                $models = [];
+                foreach($indicators as $indicator){
+                    $models[] = Indicator::fromWp($indicator);
+                }
                 $template = WPPD_DIR . '/template/admin/indicator/list.php';
                 break;
         }

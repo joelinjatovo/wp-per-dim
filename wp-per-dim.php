@@ -22,7 +22,7 @@ $actions = array(
     new WpPerDim\WordPress\Enqueue\Script(),
 
     /** Shortcodes */
-    //new WpPerDim\WordPress\Shortcode\WpPerDimShortcode(),
+    new WpPerDim\WordPress\Shortcode\Shortcode(),
     
     /** Routing */
     /*

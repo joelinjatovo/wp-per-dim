@@ -18,9 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="form-field form-required term-name-wrap">
             <label for="report-indicator">Indicateur</label>
             <select name="report-indicator" id="report-indicator" data-id="<?php echo $model->getPkValue(); ?>" class="postform" style="min-width: 300px;">
-                    <option class="level-0" value="-1">Sélectionnez un indicateur</option>
+                <option class="level-0" value="-1">Sélectionnez un indicateur</option>
                 <?php foreach($indicators as $indicator): ?>
-                    <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> ><?php echo $indicator->title; ?></option>
+                    <?php $reports = $indicator->getReports(); ?>
+                    <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> <?php echo count($reports) > 0 ? 'disabled' : '' ; ?> ><?php echo $indicator->title; ?></option>
                 <?php endforeach; ?>
             </select>
             <p></p>
@@ -40,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <tbody class="container" id="report-results-container">
                         <?php foreach($model->getResults() as $key => $result): ?>
                             <tr class="row">
-                                <td width="10%"><span class="period"><?php echo $period = $result->getPeriod()? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
+                                <td width="10%"><span class="period"><?php echo ( $period = $result->getPeriod() ) ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
                                 <td width="80%">
                                     <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
                                     <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $result->period_id; ?>" />
@@ -52,6 +53,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </table>
             </div>
             <p></p>
+        </div>
+        <div class="form-field form-required term-name-wrap">
+            <label for="report-link">Lien connexe</label>
+            <input name="report-link" id="report-link" type="text" value="<?php echo $model->link; ?>" size="200" aria-required="true">
+            <p>Ce lien est utilisé pour retrouvé les données en question.</p>
         </div>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
