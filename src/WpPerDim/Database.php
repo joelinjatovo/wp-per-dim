@@ -34,6 +34,14 @@ class Database{
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";
 
+        $table_name = $wpdb->prefix . "wppd_trackers";	   		
+        $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
+            `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+            `title`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci
+        );";
+        $wpdb->query($sql);
+        echo "Error $table_name: $wpdb->last_error \n";
+
         $table_name = $wpdb->prefix . "wppd_indicators";	   		
         $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
             `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -50,9 +58,11 @@ class Database{
         $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
             `id`           BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
             `title`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `group`        VARCHAR(100) COLLATE utf8mb4_unicode_520_ci,
             `order`        INT(20),
             `indicator_id` BIGINT(20),
-            INDEX (`indicator_id`)
+            INDEX (`indicator_id`),
+            INDEX (`group`)
         );";
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";
@@ -77,7 +87,10 @@ class Database{
             `value`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `report_id` BIGINT(20),
             `period_id` BIGINT(20),
-            INDEX (`period_id`)
+            `tracker_id` BIGINT(20),
+            INDEX (`report_id`),
+            INDEX (`period_id`),
+            INDEX (`tracker_id`)
         );";
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";
@@ -86,7 +99,7 @@ class Database{
         
         $log = ob_get_contents();
         ob_end_clean();
-        $file = NXW_DIR."log/activation.log";
+        $file = WPPD_DIR . "log/activation.log";
         if(file_exists($file)){
             $current = file_get_contents($file);	
         }else{
@@ -102,7 +115,7 @@ class Database{
     public function uninstall() {
         global $wpdb;
         $table_names = [
-            $wpdb->prefix . 'nxw_categories',
+            //$wpdb->prefix . 'nxw_categories',
         ];
         foreach($table_names as $table_name){
             $sql = "DROP TABLE IF EXISTS $table_name";

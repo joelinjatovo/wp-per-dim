@@ -32,6 +32,7 @@ class Result extends BaseModel{
         'value',
         'period_id',
         'report_id',
+        'tracker_id',
     ];
     
     public function getPeriod(){
@@ -40,6 +41,10 @@ class Result extends BaseModel{
     
     public function getIndicator(){
         return $this->getPeriod()?$this->getPeriod()->getIndicator():null;
+    }
+    
+    public function getTracker(){
+        return Tracker::find((int) $this->tracker_id);
     }
     
 }

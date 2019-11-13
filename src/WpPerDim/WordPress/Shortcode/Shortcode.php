@@ -23,6 +23,7 @@ class Shortcode implements HooksInterface{
      */
     public function hooks(){
         add_shortcode( "wppd_dashboard", array($this, 'dashboard') );
+        add_shortcode( "wppd_graph", array($this, 'graph') );
 
     }
     
@@ -70,6 +71,33 @@ class Shortcode implements HooksInterface{
 
         ob_start();
         include( WPPD_DIR . '/template/shortcode-km.php');
+        return ob_get_clean();
+    }
+    
+    public function graph($atts){
+        $default = array(
+			'limit'    => '12',
+			'orderby'  => 'rand',
+			'order'    => 'DESC',
+			'type'     => 'cf', // cf|km
+        );
+        
+        $attributes = shortcode_atts($default, (array) $atts);
+        
+        $datas = [];
+        $indicators = Indicator::getAll();
+        foreach($indicators as $item){
+            $indicator = Indicator::fromWp($item);
+            foreach($indicator->getPeriods() as $period){
+                $datas[] = [
+                    'period' => $period->title,
+                    'value'  => $period->getValue(),
+                ];
+            }
+        }
+
+        ob_start();
+        include( WPPD_DIR . '/template/shortcode-graph.php');
         return ob_get_clean();
     }
 

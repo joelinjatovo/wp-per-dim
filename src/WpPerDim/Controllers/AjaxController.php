@@ -6,6 +6,7 @@ use WpPerDim\Systems\BaseController;
 use WpPerDim\Models\App\Report;
 use WpPerDim\Models\App\Indicator;
 use WpPerDim\Models\App\Result;
+use WpPerDim\Models\App\Tracker;
 
 /**
  * AjaxController
@@ -35,6 +36,8 @@ class AjaxController extends BaseController{
                 $indicator = Indicator::find($indicator_id);
             }
             
+            $tackers = Tracker::getAll();
+            
             if( $report && ( $report->indicator_id == $indicator_id ) ) {
                 foreach($report->getResults() as $key => $result){
                     ?>
@@ -51,12 +54,26 @@ class AjaxController extends BaseController{
             }elseif( $indicator ) {
                 foreach($indicator->getPeriods() as $key => $period){
                     ?>
-                    <tr class="row">
+                    <tr class="row" border="1">
                         <td width="10%"><span class="period"><?php echo $period->title; ?></span></td>
                         <td width="80%">
                             <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="" />
                             <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $period->getPkValue(); ?>" />
-                            <input type="text" name="report-results[<?php echo $key; ?>][value]" value="" />
+                            <table>
+                                <tbody>
+                                    <?php foreach($tackers as $index => $tacker): ?>
+                                    <?php $tacker = Tracker::fromWp($tacker); ?>
+                                        <tr>
+                                            <td><?php echo $tacker->title; ?></td>
+                                            <td>
+                                                <input type="hidden" name="report-results[<?php echo $key; ?>][values][<?php echo $index; ?>][tracker]" value="<?php echo $tacker->getPkValue(); ?>" />
+                                                <input type="text" name="report-results[<?php echo $key; ?>][values][<?php echo $index; ?>][value]" value="" />
+                                            </td>
+                                        </tr>
+                                    
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
                     <?php

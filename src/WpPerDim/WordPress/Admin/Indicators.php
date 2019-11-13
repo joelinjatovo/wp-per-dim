@@ -4,6 +4,7 @@ namespace WpPerDim\WordPress\Admin;
 use WpPerDim\Models\App\Indicator;
 use WpPerDim\Models\App\Period;
 use WpPerDim\Models\App\Unit;
+use WpPerDim\Models\App\Tracker;
 
 /**
  * Indicators
@@ -43,6 +44,7 @@ class Indicators extends WelcomePage{
                 }
                 if(!$model){ $model = new Indicator(); }
                 $units = Unit::getAll();
+                $trackers = Tracker::getAll();
                 
                 $template = WPPD_DIR . '/template/admin/indicator/create.php';
                 break;

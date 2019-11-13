@@ -31,6 +31,7 @@ class Period extends BaseModel{
         'title',
         'order',
         'indicator_id',
+        'group',
     ];
     
     /**
@@ -61,6 +62,14 @@ class Period extends BaseModel{
         }else{
             return [];
         }
+    }
+    
+    public function getValue(){
+        $value = 0;
+        foreach($this->getResults() as $result){
+            $value += $result->value;
+        }
+        return $value;
     }
     
 }

@@ -117,7 +117,7 @@ class Datas extends WelcomePage{
                         $news = [];
                         $results = $_POST['report-results'];
                         foreach($results as $key => $value){
-                            if( is_array($value) && isset($value['id']) && isset($value['period']) && isset($value['value'])) {
+                            if( is_array($value) && isset($value['id']) && isset($value['period']) && isset($value['values'])) {
                                 $result = Result::find((int) $value['id']);
                                 if( ! $result ) {
                                     $result = new Result();
