@@ -102,14 +102,14 @@ class Datas extends WelcomePage{
                                 $result->value = $value['value'];
                                 $result->save();
                                 
-                                $news[] = $period->getPkValue();
+                                $news[] = $result->getPkValue();
                             }
                         }
                         
                         global $wpdb;
-                        $table_name = $wpdb->prefix.Period::getTable();
+                        $table_name = $wpdb->prefix.Result::getTable();
                         $ids = implode( ',', array_map( 'absint', $news ) );
-                        $wpdb->query( "DELETE FROM $table_name WHERE `indicator_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
+                        $wpdb->query( "DELETE FROM $table_name WHERE `report_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
                     }
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }

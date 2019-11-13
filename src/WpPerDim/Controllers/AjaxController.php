@@ -22,8 +22,8 @@ class AjaxController extends BaseController{
     
     public function selectIndicator(){
         if ( isset( $_POST['indicator_id'] ) ){
-            $report_id = wc_clean( wp_unslash( $_POST['report_id'] ) );
-            $indicator_id = wc_clean( wp_unslash( $_POST['indicator_id'] ) );
+            $report_id = \wp_unslash( $_POST['report_id'] );
+            $indicator_id = \wp_unslash( $_POST['indicator_id'] );
             
             $report = false;
             if( $report_id ){
@@ -63,6 +63,6 @@ class AjaxController extends BaseController{
                 }
             }
         }
-        exit();
+        wp_die();
     }
 }

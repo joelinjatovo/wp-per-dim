@@ -28,8 +28,8 @@ $actions = array(
     /*
     new WpPerDim\WordPress\Routing\HomeTemplate(),
     new WpPerDim\WordPress\Rest\Api(),
-    new WpPerDim\WordPress\Rest\Ajax(),
     */
+    new WpPerDim\WordPress\Rest\Ajax(),
     
     /** Admin Menu */
     new WpPerDim\WordPress\Admin\Menus(),

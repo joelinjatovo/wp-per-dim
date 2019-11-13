@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="form-field form-required term-name-wrap">
             <label for="report-indicator">Indicateur</label>
             <select name="report-indicator" id="report-indicator" data-id="<?php echo $model->getPkValue(); ?>" class="postform" style="min-width: 300px;">
+                    <option class="level-0" value="-1">Sélectionnez un indicateur</option>
                 <?php foreach($indicators as $indicator): ?>
                     <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> ><?php echo $indicator->title; ?></option>
                 <?php endforeach; ?>

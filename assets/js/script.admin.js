@@ -21,8 +21,9 @@ jQuery(document).ready(function(){
             'report_id' : jQuery(this).attr('data-id'),
             'indicator_id' : jQuery(this).find(":selected").val()
         };
+        console.log(data);
         var options   = {
-            url : wppd.ajax_url,
+            url : wppd_object_var.ajax_url,
             method: "POST",
             data: data,
             beforeSend: function( xhr ) {
