@@ -14,7 +14,6 @@ use WpPerDim\WordPress\Helpers\PostType;
  */
 class Script implements HooksInterface{
 
-
     /**
      * @see WpPerDim\Interfaces\HooksInterface
      */
@@ -33,6 +32,9 @@ class Script implements HooksInterface{
     public function admin_script(){
         wp_enqueue_script('jquery-repeatable', WPPD_URL . "/assets/js/repeatable-fields.js", array('jquery', 'jquery-ui-core'), null, true);
         wp_enqueue_script('jquery-repeatable-init', WPPD_URL . "/assets/js/script.admin.js", array('jquery-repeatable'), null, true);
-        //wp_enqueue_script('wppd.repeatable.js');	
+        wp_localize_script('jquery-repeatable-init', 'wppd_object_var', [
+            'ajax_url'      => admin_url( 'admin-ajax.php' ),
+            'error_message' => __('Une erreur s\'est produite. Veuillez réessayer!', 'wppd')
+        ]);
     }
 }

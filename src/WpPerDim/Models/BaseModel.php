@@ -98,6 +98,15 @@ class BaseModel {
     }
     
     /**
+    * Save or Update item
+    */
+    public function delete(){
+        global $wpdb;
+        $table_name = $wpdb->prefix.static::$_table;
+        return $wpdb->delete($table_name,[$this->getPk()=>$this->getPkValue()]);
+    }
+    
+    /**
     * return sql query string
     *
     * @return string

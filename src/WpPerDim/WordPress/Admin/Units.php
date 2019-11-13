@@ -44,7 +44,28 @@ class Units extends WelcomePage{
                 $template = WPPD_DIR . '/template/admin/unit/create.php';
                 break;
             case 'show':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Unit::find($id);
+                }
+                if(!$model){ $model = new Unit(); }
                 $template = WPPD_DIR . '/template/admin/unit/show.php';
+                break;
+            case 'delete':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Unit::find($id);
+                    if($model){
+                        $model->delete(); 
+                    }
+                }
+                /** list all */
+                $models = Unit::getAll();
+                $template = WPPD_DIR . '/template/admin/unit/list.php';
                 break;
             default:
                 $models = Unit::getAll();

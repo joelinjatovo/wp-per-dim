@@ -42,12 +42,37 @@ class Datas extends WelcomePage{
                     $model = Report::find($id);
                 }
                 if(!$model){ $model = new Report(); }
-                $indicators = Indicator::getAll();
+                $models = Indicator::getAll();
+                $indicators = [];
+                foreach($models as $indicator){
+                    $indicators[] = Indicator::fromWp($indicator);
+                }
                 
                 $template = WPPD_DIR . '/template/admin/report/create.php';
                 break;
             case 'show':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Report::find($id);
+                }
+                if(!$model){ $model = new Report(); }
                 $template = WPPD_DIR . '/template/admin/report/show.php';
+                break;
+            case 'delete':
+                $id = 0;
+                $model = null;
+                if( isset($_GET['id']) ) {
+                    $id = (int) $_GET['id'];
+                    $model = Report::find($id);
+                    if($model){
+                        $model->delete(); 
+                    }
+                }
+                /** list all */
+                $models = Report::getAll();
+                $template = WPPD_DIR . '/template/admin/report/list.php';
                 break;
             default:
                 $models = Report::getAll();
@@ -102,14 +127,14 @@ class Datas extends WelcomePage{
                                 $result->value = $value['value'];
                                 $result->save();
                                 
-                                $news[] = $period->getPkValue();
+                                $news[] = $result->getPkValue();
                             }
                         }
                         
                         global $wpdb;
-                        $table_name = $wpdb->prefix.Period::getTable();
+                        $table_name = $wpdb->prefix.Result::getTable();
                         $ids = implode( ',', array_map( 'absint', $news ) );
-                        $wpdb->query( "DELETE FROM $table_name WHERE `indicator_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
+                        $wpdb->query( "DELETE FROM $table_name WHERE `report_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
                     }
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }

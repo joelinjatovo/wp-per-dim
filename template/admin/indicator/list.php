@@ -52,6 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <div class="row-actions">
                                     <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
                                     <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a> | </span>
+                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-indicators&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="Supprimer «&nbsp;<?php echo $model->title; ?>&nbsp;»">Supprimer</a> | </span>
                                     <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=show&action=create&indicator_id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Ajouter donnée «&nbsp;<?php echo $model->title; ?>&nbsp;»">Ajouter donnée</a></span>
                                 </div>
                             </td>

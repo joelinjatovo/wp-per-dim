@@ -22,8 +22,8 @@ class AjaxController extends BaseController{
     
     public function selectIndicator(){
         if ( isset( $_POST['indicator_id'] ) ){
-            $report_id = wc_clean( wp_unslash( $_POST['report_id'] ) );
-            $indicator_id = wc_clean( wp_unslash( $_POST['indicator_id'] ) );
+            $report_id = \wp_unslash( $_POST['report_id'] );
+            $indicator_id = \wp_unslash( $_POST['indicator_id'] );
             
             $report = false;
             if( $report_id ){
@@ -39,7 +39,7 @@ class AjaxController extends BaseController{
                 foreach($report->getResults() as $key => $result){
                     ?>
                     <tr class="row">
-                        <td width="10%"><span class="period"><?php echo $period = $result->getPeriod()? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
+                        <td width="10%"><span class="period"><?php echo ( $period = $result->getPeriod() ) ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
                         <td width="80%">
                             <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
                             <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $result->period_id; ?>" />
@@ -63,6 +63,6 @@ class AjaxController extends BaseController{
                 }
             }
         }
-        exit();
+        wp_die();
     }
 }

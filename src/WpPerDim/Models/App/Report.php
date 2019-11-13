@@ -34,6 +34,20 @@ class Report extends BaseModel{
         'indicator_id',
     ];
     
+    /**
+    * delete item
+    */
+    public function delete(){
+        foreach($this->getResults() as $result){
+            $result->delete(); 
+        }
+        parent::delete();
+    }
+    
+    public function getIndicator(){
+        return Indicator::find((int) $this->indicator_id);
+    }
+    
     public function getResults(){
         global $wpdb;
         $table_name = $wpdb->prefix.Result::getTable();

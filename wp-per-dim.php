@@ -22,14 +22,14 @@ $actions = array(
     new WpPerDim\WordPress\Enqueue\Script(),
 
     /** Shortcodes */
-    //new WpPerDim\WordPress\Shortcode\WpPerDimShortcode(),
+    new WpPerDim\WordPress\Shortcode\Shortcode(),
     
     /** Routing */
     /*
     new WpPerDim\WordPress\Routing\HomeTemplate(),
     new WpPerDim\WordPress\Rest\Api(),
-    new WpPerDim\WordPress\Rest\Ajax(),
     */
+    new WpPerDim\WordPress\Rest\Ajax(),
     
     /** Admin Menu */
     new WpPerDim\WordPress\Admin\Menus(),

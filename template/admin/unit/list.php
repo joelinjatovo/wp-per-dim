@@ -48,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»"><?php echo $model->title; ?></a></strong><br>
                                 <div class="row-actions">
                                     <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
+                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="Supprimer «&nbsp;<?php echo $model->title; ?>&nbsp;»">Supprimer</a> | </span>
                                     <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-units&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a></span>
                                 </div>
                             </td>
