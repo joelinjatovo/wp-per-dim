@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <option class="level-0" value="-1">Sélectionnez un indicateur</option>
                 <?php foreach($indicators as $indicator): ?>
                     <?php $reports = $indicator->getReports(); ?>
-                    <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> <?php echo count($reports) > 0 ? 'disabled' : '' ; ?> ><?php echo $indicator->title; ?></option>
+                    <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> <?php count($reports) > 0 ? 'disabled' : '' ; ?> ><?php echo $indicator->title; ?></option>
                 <?php endforeach; ?>
             </select>
             <p></p>
@@ -39,15 +39,21 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="results-wrapper" id="report-results">
                 <table class="wrapper" width="100%">
                     <tbody class="container" id="report-results-container">
-                        <?php foreach($model->getResults() as $key => $result): ?>
+                        <?php $key = 0; ?>
+                        <?php foreach($model->getResultsPerPeriod() as $period_id => $results): ?>
+                            <?php $period = \WpPerDim\Models\App\Period::find($period_id); ?>
                             <tr class="row">
-                                <td width="10%"><span class="period"><?php echo ( $period = $result->getPeriod() ) ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
+                                <td width="10%"><span class="period"><?php echo $period ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
                                 <td width="80%">
-                                    <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
-                                    <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $result->period_id; ?>" />
-                                    <input type="text" name="report-results[<?php echo $key; ?>][value]" value="<?php echo $result->value; ?>" />
+                                    <?php foreach($results as $index => $result): ?>
+                                        <input type="hidden" name="report-results[<?php echo $key; ?>][<?php echo $index; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
+                                        <input type="hidden" name="report-results[<?php echo $key; ?>][<?php echo $index; ?>][period]" value="<?php echo $result->period_id; ?>" />
+                                        <input type="hidden" name="report-results[<?php echo $key; ?>][<?php echo $index; ?>][tracker]" value="<?php echo $result->tracker_id; ?>" />
+                                        <input type="text" name="report-results[<?php echo $key; ?>][<?php echo $index; ?>][value]" value="<?php echo $result->value; ?>" />
+                                    <?php endforeach; ?>
                                 </td>
                             </tr>
+                            <?php $key++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

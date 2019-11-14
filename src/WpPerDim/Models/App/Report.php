@@ -64,4 +64,19 @@ class Report extends BaseModel{
         }
     }
     
+    public function getResultsPerPeriod(){
+        $output = [];
+        $results = $this->getResults();
+        foreach($results as $result){
+            $period = $result->getPeriod();
+            if($period){
+                if( ! isset( $output[$period->getPkValue()] ) ) {
+                    $output[$period->getPkValue()] = [];
+                }
+                $output[$period->getPkValue()][] = $result;
+            }
+        }
+        return $output;
+    }
+    
 }
