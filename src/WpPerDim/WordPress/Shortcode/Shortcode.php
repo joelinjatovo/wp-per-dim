@@ -85,6 +85,7 @@ class Shortcode implements HooksInterface{
         
         $attributes = shortcode_atts($default, (array) $atts);
         
+        /**
         $datas = [];
         $trackers = Tracker::getAll();
         foreach($trackers as $item){
@@ -98,6 +99,7 @@ class Shortcode implements HooksInterface{
                 'value'   => $value,
             ];
         }
+        */
         
         $indicators = [];
         $items = Indicator::getAll();

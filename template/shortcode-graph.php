@@ -43,7 +43,7 @@ jQuery(document).ready(function(){
     // Create chart instance
     var chart = am4core.create("chartdiv", am4charts.XYChart);
         // Add data
-        chart.data = <?php echo json_encode($datas); ?>;
+        /*chart.data = <?php echo json_encode($datas); ?>;*/
 
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
