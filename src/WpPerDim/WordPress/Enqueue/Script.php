@@ -23,10 +23,10 @@ class Script implements HooksInterface{
     }
     
     public function front_script(){
-        wp_enqueue_script('am4chart-animated', WPPD_URL . "/assets/plugins/am4chart/animated.js", array(), null, true);
-        wp_enqueue_script('am4chart-material', WPPD_URL . "/assets/plugins/am4chart/material.js", array(), null, true);
         wp_enqueue_script('am4chart-core', WPPD_URL . "/assets/plugins/am4chart/core.js", array(), null, true);
-        wp_enqueue_script('am4chart', WPPD_URL . "/assets/plugins/am4chart/charts.js", array('jquery', 'am4chart-animated', 'am4chart-material', 'am4chart-core'), null, true);
+        wp_enqueue_script('am4chart', WPPD_URL . "/assets/plugins/am4chart/charts.js", array('jquery', 'am4chart-core'), null, true);
+        wp_enqueue_script('am4chart-animated', WPPD_URL . "/assets/plugins/am4chart/animated.js", array('am4chart'), null, true);
+        wp_enqueue_script('am4chart-material', WPPD_URL . "/assets/plugins/am4chart/material.js", array('am4chart'), null, true);
     }
     
     public function admin_script(){
