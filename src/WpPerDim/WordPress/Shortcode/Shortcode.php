@@ -8,6 +8,7 @@ use WpPerDim\Models\App\Indicator;
 use WpPerDim\Models\App\Result;
 use WpPerDim\Models\App\Period;
 use WpPerDim\Models\App\Unit;
+use WpPerDim\Models\App\Tracker;
 
 /**
  * Shortcode
@@ -85,17 +86,65 @@ class Shortcode implements HooksInterface{
         $attributes = shortcode_atts($default, (array) $atts);
         
         $datas = [];
-        $indicators = Indicator::getAll();
-        foreach($indicators as $item){
+        $trackers = Tracker::getAll();
+        foreach($trackers as $item){
+            $tracker = Tracker::fromWp($item);
+            $value = 0;
+            foreach($tracker->getResults() as $result){
+                $value += $result->value;
+            }
+            $datas[] = [
+                'tracker' => $tracker->title,
+                'value'   => $value,
+            ];
+        }
+        
+        $indicators = [];
+        $items = Indicator::getAll();
+        foreach($items as $item){
             $indicator = Indicator::fromWp($item);
+            
+            $periods = [];
             foreach($indicator->getPeriods() as $period){
-                $datas[] = [
-                    'period' => $period->title,
-                    'value'  => $period->getValue(),
+                $results = [];
+                foreach($period->getResults() as $result){
+                    $tracker = $result->getTracker();
+                    if( $tracker ) {
+                        if( ! isset( $results[ $tracker->getPkValue() ] ) ){
+                            $results[ $tracker->getPkValue() ] = [
+                                'tracker' => $tracker->title,
+                                'value'   => $result->value,
+                            ];
+                        }else{
+                            $value = $results[ $tracker->getPkValue() ]['value'];
+                            $results[ $tracker->getPkValue() ] = [
+                                'tracker' => $tracker->title,
+                                'value'   => $value + $result->value,
+                            ];
+                        }
+                    }
+                }
+                
+                $results_datas = [];
+                foreach($results as $result){
+                    $results_datas[] = $result;
+                }
+                
+                $periods[] = [
+                    'id'    => $period->getPkValue(),
+                    'title' => $period->title,
+                    'datas' => $results_datas,
                 ];
             }
+            
+            $indicators[$indicator->getPkValue()] = [
+                'id'      => $indicator->getPkValue(),
+                'title'   => $indicator->title,
+                'type'    => $indicator->type,
+                'periods' => $periods,
+            ];
         }
-
+        
         ob_start();
         include( WPPD_DIR . '/template/shortcode-graph.php');
         return ob_get_clean();
