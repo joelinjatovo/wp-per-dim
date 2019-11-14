@@ -59,14 +59,27 @@ jQuery(document).ready(function(){
         series.dataFields.categoryX = "tracker";
         series.name = "Suivis";
     
+    var indicator_data;
     jQuery('select').on('change', function() {
         var indicator_id = this.value;
-        var indicator_data = indicators_data[indicator_id];
+        indicator_data = indicators_data[indicator_id];
+        chart.data = indicator_data.periods[0].datas;
         var container = jQuery('.period-buttons');
-        //alert(indicator_data.title);
-        chart.data = indicator_data.periods[0]['datas'];
-        console.log(indicator_data.periods[0]['datas']);
+        var html = '';
+        jQuery.each(indicator_data.periods, function(index, period) {
+            html += '<button class="btn-period" value="'+ period.id +'">'+ period.title +'</button>';
+        });
+        container.html(html);
         
+    });
+    
+    jQuery(document).on('click', '.btn-period', function() {
+        var period_id = this.value;
+        jQuery.each(indicator_data.periods, function(index, period) {
+            if(period.id == period_id){
+                chart.data = period.datas;
+            }
+        });
     });
 });
 </script>
