@@ -36,7 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </div>
 </div>
-<?php print_r($indicators); ?>
 <script>
 jQuery(document).ready(function(){
     var indicators_data = <?php echo json_encode($indicators); ?>;
@@ -60,16 +59,9 @@ jQuery(document).ready(function(){
         series.name = "Suivis";
     
     var indicator_data;
-    jQuery('select').on('change', function() {
+    jQuery('select.select-indicator').on('change', function() {
         var indicator_id = this.value;
-        indicator_data = indicators_data[indicator_id];
-        chart.data = indicator_data.periods[0].datas;
-        var container = jQuery('.period-buttons');
-        var html = '';
-        jQuery.each(indicator_data.periods, function(index, period) {
-            html += '<button class="btn-period" value="'+ period.id +'">'+ period.title +'</button>';
-        });
-        container.html(html);
+        selectIndicator(indicator_id);
         
     });
     
@@ -81,5 +73,19 @@ jQuery(document).ready(function(){
             }
         });
     });
+    
+    function selectIndicator(indicator_id){
+        indicator_data = indicators_data[indicator_id];
+        chart.data = indicator_data.periods[0].datas;
+        var container = jQuery('.period-buttons');
+        var html = '';
+        jQuery.each(indicator_data.periods, function(index, period) {
+            html += '<button class="btn-period" value="'+ period.id +'">'+ period.title +'</button>&nbsp;';
+        });
+        container.html(html);
+    }
+    
+    var indicator_id = jQuery('select.select-indicator').children("option:selected").val();
+    selectIndicator(indicator_id);
 });
 </script>
