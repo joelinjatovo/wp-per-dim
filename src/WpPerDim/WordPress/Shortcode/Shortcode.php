@@ -40,38 +40,52 @@ class Shortcode implements HooksInterface{
         
         global $wpdb;
         
-        if($attributes['type'] == 'cf'){
-            $t1 = $wpdb->prefix.Indicator::getTable();
-            $t2 = $wpdb->prefix.Period::getTable();
-            $t3 = $wpdb->prefix.Result::getTable();
-            $t4 = $wpdb->prefix.Report::getTable();
-            $sql = "SELECT DISTINCT(t1.`id`) as id, t1.`title`, t3.`value` FROM $t1 AS t1 " .
-                                  " LEFT JOIN $t2 AS t2 ON t1.`id` = t2.`indicator_id` " .
-                                  " LEFT JOIN $t3 AS t3 ON t2.`id` = t3.`period_id` " .
-                                  " LEFT JOIN $t4 AS t4 ON t4.`id` = t3.`report_id` " .
-                                  " WHERE t4.`type` = 'cf' " .
-                                  " ORDER BY t2.`order` DESC;";
-            $datas = $wpdb->get_results($sql);
-
-            ob_start();
-            include( WPPD_DIR . '/template/shortcode-cf.php');
-            return ob_get_clean();
+        if($attributes['type'] != 'cf'){
+            $attributes['type'] = 'km';
         }
-        
-        $t1 = $wpdb->prefix.Indicator::getTable();
-        $t2 = $wpdb->prefix.Period::getTable();
-        $t3 = $wpdb->prefix.Result::getTable();
-        $t4 = $wpdb->prefix.Report::getTable();
-        $sql = "SELECT t1.`id`, t1.`title`, t3.`value`, t3.`id` as value2 FROM $t1 AS t1 " .
-                              " LEFT JOIN $t2 AS t2 ON t1.`id` = t2.`indicator_id` " .
-                              " LEFT JOIN $t3 AS t3 ON t2.`id` = t3.`period_id` " .
-                              " LEFT JOIN $t4 AS t4 ON t4.`id` = t3.`report_id` " .
-                              " WHERE t4.`type` = 'km' " .
-                              " ORDER BY t1.`title` ASC;";
-        $datas = $wpdb->get_results($sql);
 
+        $indicators = Indicator::getAll();
+
+        $datas = [];
+        foreach($indicators as $indicator){
+            $indicator = Indicator::fromWp($indicator);
+
+            $oldValue = -1;
+            $newValue = -1;
+            $type = 'ok-nok';
+            foreach($indicator->getPeriods() as $period){
+                $value = 0;
+                foreach($period->getResults() as $result){
+                    if($report && ( $report->type == $attributes['type'] ) ){
+                        $report = $result->getReport();
+                        $value += $result->value;
+                        if($result->value > 1){
+                            $type = 'graph';
+                        }
+                    }
+                }
+
+                if($oldValue<0){
+                    $oldValue = $value;
+                }else if($newValue<0){
+                    $newValue = $value;
+                }else{
+                    $oldValue = $newValue;
+                    $newValue = $value;
+                }
+            }
+
+            $datas[$indicator->getPkValue()] = [
+                'id'     => $indicator->getPkValue(),
+                'title'  => $indicator->title,
+                'old'    => $oldValue,
+                'new'    => $newValue,
+                'value'  => $oldValue,
+                'status' => ( ($oldValue>=0)&&($newValue>=0) ? ( $oldValue < $newValue ? 'up' : ( $oldValue > $newValue ? 'down' : 'same' ) ) : 'unknown' ),
+            ];
+        }
         ob_start();
-        include( WPPD_DIR . '/template/shortcode-km.php');
+        include( WPPD_DIR . '/template/shortcode-' . $attributes['type'] . '.php');
         return ob_get_clean();
     }
     

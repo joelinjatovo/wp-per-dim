@@ -34,6 +34,10 @@ class Result extends BaseModel{
         'report_id',
     ];
     
+    public function getReport(){
+        return Report::find((int) $this->report_id);
+    }
+    
     public function getPeriod(){
         return Period::find((int) $this->period_id);
     }

@@ -1,4 +1,1 @@
 *.log
-*.lock
-/vendor/
-/assets/uploads/
