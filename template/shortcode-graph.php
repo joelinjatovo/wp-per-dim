@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <div class="period-buttons">
                     <?php foreach($indicators as $indicator): ?>
                         <?php foreach($indicator['periods'] as $period): ?>
-                            <button class="btn-period" value="<?php echo $period['id']; ?>"><?php echo $period['title']; ?></button>
+                            <button class="btn-period" value="<?php echo $period['id']; ?>"><?php echo $period['title']; ?> / <?php echo $period['value']; ?></button>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </div>
@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
 
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "tracker";
+        categoryAxis.dataFields.category = "period";
 
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.min = 0;
@@ -55,32 +55,22 @@ jQuery(document).ready(function(){
         // Create series
         var series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = "value";
-        series.dataFields.categoryX = "tracker";
+        series.dataFields.categoryX = "period";
         series.name = "Suivis";
     
     var indicator_data;
     jQuery('select.select-indicator').on('change', function() {
         var indicator_id = this.value;
         selectIndicator(indicator_id);
-        
-    });
-    
-    jQuery(document).on('click', '.btn-period', function() {
-        var period_id = this.value;
-        jQuery.each(indicator_data.periods, function(index, period) {
-            if(period.id == period_id){
-                chart.data = period.datas;
-            }
-        });
     });
     
     function selectIndicator(indicator_id){
         indicator_data = indicators_data[indicator_id];
-        chart.data = indicator_data.periods[0].datas;
+        chart.data = indicator_data.periods;
         var container = jQuery('.period-buttons');
         var html = '';
         jQuery.each(indicator_data.periods, function(index, period) {
-            html += '<button class="btn-period" value="'+ period.id +'">'+ period.title +'</button>&nbsp;';
+            html += '<button class="btn-period" value="'+ period.id +'">'+ period.title + " / " + period.value +'</button>&nbsp;';
         });
         container.html(html);
     }

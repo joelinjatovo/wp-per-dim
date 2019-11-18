@@ -43,7 +43,7 @@ if ( ! $tab_exists ) {
         
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-				<button name="save" class="button-primary nexway-save-button" type="submit" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
+				<button name="save" class="button-primary nexway-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
 			<?php endif; ?>
 			<?php wp_nonce_field( 'nexway-settings' ); ?>
 		</p>

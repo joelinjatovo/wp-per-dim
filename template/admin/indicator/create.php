@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
         <div class="form-field term-description-wrap">
             <label for="indicator-description">Description de l'indicateur</label>
-            <textarea name="indicator-description" id="indicator-description" rows="5" cols="40"></textarea>
+            <textarea name="indicator-description" id="indicator-description" rows="5" cols="40"><?php echo $model->description; ?></textarea>
             <p>La description n’est pas très utilisée par défaut, cependant de plus en plus de thèmes l’affichent.</p>
         </div>
         <div class="form-field term-parent-wrap">
@@ -83,13 +83,15 @@ if ( ! defined( 'ABSPATH' ) ) {
             <label for="indicator-graph">Type de graphe de l'indicateur</label>
             <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
                 <option value="-1">Aucun</option>
-                <option class="level-0" value="1">Non classé</option>
+                <option class="level-0" value="pie" <?php selected('pie', $model->graph, true); ?>>Pie</option>
+                <option class="level-0" value="donnut" <?php selected('donut', $model->graph, true); ?>>Donnut</option>
+                <option class="level-0" value="xy" <?php selected('xy', $model->graph, true); ?>>XY Chart</option>
             </select>
             <p></p>
         </div>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-				<button name="save" class="button-primary wppd-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'wppd' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
+				<button name="save" class="button-primary wppd-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'wppd' ); ?>"><?php esc_html_e( 'Enregistrer', 'wppd' ); ?></button>
 			<?php endif; ?>
 		</p>
 	</form>

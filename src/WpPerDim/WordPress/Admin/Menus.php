@@ -19,7 +19,6 @@ class Menus implements HooksInterface{
         add_action( "admin_menu", array($this, 'admin_menu') );
         add_action( "admin_menu", array($this, 'dashboard_menu') );
         add_action( "admin_menu", array($this, 'units_menu') );
-        add_action( "admin_menu", array($this, 'trackers_menu') );
         add_action( "admin_menu", array($this, 'indicators_menu') );
         add_action( "admin_menu", array($this, 'datas_menu') );
     }
@@ -35,11 +34,6 @@ class Menus implements HooksInterface{
     
     public function units_menu(){
         $page = add_submenu_page('wppd', __( 'Liste: Unités', 'wppd' ) , __( 'Unités', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
-        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
-    }
-    
-    public function trackers_menu(){
-        $page = add_submenu_page('wppd', __( 'Liste: Suivis', 'wppd' ) , __( 'Suivis', 'wppd' ), 'manage_options', 'wppd-trackers', array($this, "trackers_page"), null, 0);
         add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
@@ -95,10 +89,6 @@ class Menus implements HooksInterface{
     }
     
     public function datas_page(){
-        Welcome::output();
-    }
-    
-    public function trackers_page(){
         Welcome::output();
     }
 }

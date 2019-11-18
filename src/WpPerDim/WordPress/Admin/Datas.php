@@ -116,22 +116,18 @@ class Datas extends WelcomePage{
                     if(isset($_POST['report-results']) && is_array($_POST['report-results']) ){
                         $news = [];
                         $results = $_POST['report-results'];
-                        foreach($results as $key => $values){
-                            if( is_array( $values ) ) {
-                                foreach($values as $index => $value) {
-                                    $result = Result::find((int) $value['id']);
-                                    if( ! $result ) {
-                                        $result = new Result();
-                                        $result->period_id = $value['period'];
-                                        $result->tracker_id = $value['tracker'];
-                                    }
-                                
+                        foreach($results as $key => $value){
+                            if( is_array($value) && isset($value['id']) && isset($value['period']) && isset($value['value'])) {
+                                $result = Result::find((int) $value['id']);
+                                if( ! $result ) {
+                                    $result = new Result();
+                                    $result->period_id = $value['period'];
                                     $result->report_id = $model->getPkValue();
-                                    $result->value = $value['value'];
-                                    $result->save();
-
-                                    $news[] = $result->getPkValue();
                                 }
+                                $result->value = $value['value'];
+                                $result->save();
+                                
+                                $news[] = $result->getPkValue();
                             }
                         }
                         

@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-				<button name="save" class="button-primary wppd-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'wppd' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
+				<button name="save" class="button-primary wppd-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'wppd' ); ?>"><?php esc_html_e( 'Enregistrer', 'wppd' ); ?></button>
 			<?php endif; ?>
 		</p>
 	</form>

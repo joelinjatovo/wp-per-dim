@@ -39,7 +39,6 @@ class Welcome{
             
             $welcomes[] = new Dashboard();
             $welcomes[] = new Units();
-            $welcomes[] = new Trackers();
             $welcomes[] = new Indicators();
             $welcomes[] = new Datas();
 
