@@ -85,19 +85,22 @@ class Shortcode implements HooksInterface{
                 if( ( $oldValue >= 0 ) && ( $newValue >= 0 ) ) {
                     if( $oldValue < $newValue ){
                         // up
+                        $src .= 'up.png';
                     } else if ( $oldValue > $newValue ) {
                         // down
+                        $src .= 'down.png';
                     } else {
                         // same
+                        $src .= 'same.png';
                     }
                 }else{
                     // error
                 }
             }else{
                 if( $newValue == 1 ){
-                    
+                    $src .= 'ok.png';
                 } else {
-                    
+                    $src .= 'nok.png';
                 }
             }
             $image = '<img src="%s" class="graph" alt="statistic">';
@@ -107,7 +110,7 @@ class Shortcode implements HooksInterface{
                 'id'     => $indicator->getPkValue(),
                 'title'  => $indicator->title,
                 'value'  => $newValue,
-                'image'  => $type,
+                'image'  => $image,
             ];
         }
         ob_start();
