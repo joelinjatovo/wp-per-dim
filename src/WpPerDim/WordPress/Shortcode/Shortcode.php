@@ -52,10 +52,11 @@ class Shortcode implements HooksInterface{
 
             $oldValue = -1;
             $newValue = -1;
-            $type = 'ok-nok';
+            $type = 'default';
             foreach($indicator->getPeriods() as $period){
                 $value = 0;
                 foreach($period->getResults() as $result){
+                    $report = $result->getReport();
                     if($report && ( $report->type == $attributes['type'] ) ){
                         $report = $result->getReport();
                         $value += $result->value;
@@ -74,14 +75,39 @@ class Shortcode implements HooksInterface{
                     $newValue = $value;
                 }
             }
-
+                
+            if($value==0){
+                continue;
+            }
+            
+            $src = WPPD_URL.'assets/images/';
+            if( $type == 'graph' ) {
+                if( ( $oldValue >= 0 ) && ( $newValue >= 0 ) ) {
+                    if( $oldValue < $newValue ){
+                        // up
+                    } else if ( $oldValue > $newValue ) {
+                        // down
+                    } else {
+                        // same
+                    }
+                }else{
+                    // error
+                }
+            }else{
+                if( $newValue == 1 ){
+                    
+                } else {
+                    
+                }
+            }
+            $image = '<img src="%s" class="graph" alt="statistic">';
+            $image = sprintf($image, $src);
+            
             $datas[$indicator->getPkValue()] = [
                 'id'     => $indicator->getPkValue(),
                 'title'  => $indicator->title,
-                'old'    => $oldValue,
-                'new'    => $newValue,
-                'value'  => $oldValue,
-                'status' => ( ($oldValue>=0)&&($newValue>=0) ? ( $oldValue < $newValue ? 'up' : ( $oldValue > $newValue ? 'down' : 'same' ) ) : 'unknown' ),
+                'value'  => $newValue,
+                'image'  => $type,
             ];
         }
         ob_start();

@@ -10,8 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <tbody class="items">
                     <?php foreach($datas as $data): ?>
                     <tr class="item-row">
-                        <td class="item-title"><?php echo $data['id']; ?>-<?php echo $data['title']; ?></td>
+                        <td class="item-title"><?php echo $data['title']; ?></td>
                         <td class="item-value"><?php echo $data['value']; ?></td>
+                        <td class="item-image"><?php echo $data['image']; ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
