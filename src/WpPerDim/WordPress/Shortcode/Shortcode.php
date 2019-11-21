@@ -151,7 +151,7 @@ class Shortcode implements HooksInterface{
             $indicators[$indicator->getPkValue()] = [
                 'id'      => $indicator->getPkValue(),
                 'title'   => $indicator->title,
-                'type'    => $indicator->type,
+                'graph'   => $indicator->graph,
                 'periods' => $periods,
             ];
         }

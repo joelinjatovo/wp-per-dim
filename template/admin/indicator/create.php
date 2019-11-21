@@ -16,19 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) {
         <hr class="wp-header-end">
         
         <div class="form-field form-required term-name-wrap">
-            <label for="indicator-title">Titre de l'indicateur</label>
+            <label for="indicator-title"><?php echo __( 'Titre de l\'indicateur', 'wppd' ); ?></label>
             <input name="indicator-title" id="unit-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true">
-            <p>Ce titre est utilisé un peu partout sur votre site.</p>
+            <p><?php echo __( 'Ce titre est utilisé un peu partout sur votre site.', 'wppd' ); ?></p>
         </div>
         <div class="form-field term-description-wrap">
-            <label for="indicator-description">Description de l'indicateur</label>
+            <label for="indicator-description"><?php echo __( 'Description de l\'indicateur.', 'wppd' ); ?></label>
             <textarea name="indicator-description" id="indicator-description" rows="5" cols="40"><?php echo $model->description; ?></textarea>
-            <p>La description n’est pas très utilisée par défaut, cependant de plus en plus de thèmes l’affichent.</p>
+            <p><?php echo __( 'La description n’est pas très utilisée par défaut, cependant de plus en plus de thèmes l’affichent.', 'wppd' ); ?></p>
         </div>
         <div class="form-field term-parent-wrap">
-            <label for="indicator-unit">Unité de mesure de l'indicateur</label>
+            <label for="indicator-unit"><?php echo __( 'Unité de mesure de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-unit" id="indicator-init" class="postform" style="min-width: 300px;">
-                <option value="-1">Aucun</option>
+                <option value="-1"><?php echo __( 'Aucune unité', 'wppd' ); ?></option>
                 <?php foreach($units as $unit): ?>
                     <option class="level-0" value="<?php echo $unit->id; ?>" <?php selected($unit->id, $model->unit_id, true); ?> ><?php echo $unit->title; ?> ( <?php echo $unit->label; ?> )</option>
                 <?php endforeach; ?>
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p></p>
         </div>
         <div class="form-field term-parent-wrap">
-            <label for="indicator-unit">Periode de suivi de l'indicateur</label>
+            <label for="indicator-unit"><?php echo __( 'Periode de suivi de l\'indicateur', 'wppd' ); ?></label>
             <div class="repeatable-wrapper">
                 <div class="repeatable">
                     <table class="wrapper" width="100%">
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <input type="hidden" name="indicator-periods[{{row-count-placeholder}}][id]" />
                                     <input type="text" name="indicator-periods[{{row-count-placeholder}}][title]" />
                                 </td>
-                                <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                                <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                             </tr>
                             <?php $periods = $model->getPeriods(); ?>
                             <?php if( count($periods) > 0 ): ?>
@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                             <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
                                             <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
                                         </td>
-                                        <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                                        <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -65,13 +65,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                                         <input type="hidden" name="indicator-periods[0][id]" value="" />
                                         <input type="text" name="indicator-periods[0][title]" value="" />
                                     </td>
-                                    <td width="10%"><span class="remove" style="color: red;">Supprimer</span></td>
+                                    <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td width="10%" colspan="3"><span class="add">Ajouter</span></td>
+                                <td width="10%" colspan="3"><button class="add"><?php echo __( 'Ajouter', 'wppd' ); ?></button></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -80,12 +80,13 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p></p>
         </div>
         <div class="form-field term-parent-wrap">
-            <label for="indicator-graph">Type de graphe de l'indicateur</label>
+            <label for="indicator-graph"><?php echo __( 'Type de graphe de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
-                <option value="-1">Aucun</option>
-                <option class="level-0" value="pie" <?php selected('pie', $model->graph, true); ?>>Pie</option>
-                <option class="level-0" value="donnut" <?php selected('donut', $model->graph, true); ?>>Donnut</option>
-                <option class="level-0" value="xy" <?php selected('xy', $model->graph, true); ?>>XY Chart</option>
+                <option value="-1"><?php echo __( 'Sélectionnez un type de graphe', 'wppd' ); ?></option>
+                <option class="level-0" value="pie" <?php selected('pie', $model->graph, true); ?>><?php echo __( 'Pie', 'wppd' ); ?></option>
+                <option class="level-0" value="donut" <?php selected('donut', $model->graph, true); ?>><?php echo __( 'Donut', 'wppd' ); ?></option>
+                <option class="level-0" value="bar" <?php selected('bar', $model->graph, true); ?>><?php echo __( 'Bar Chart', 'wppd' ); ?></option>
+                <option class="level-0" value="line" <?php selected('line', $model->graph, true); ?>><?php echo __( 'Line Chart', 'wppd' ); ?></option>
             </select>
             <p></p>
         </div>

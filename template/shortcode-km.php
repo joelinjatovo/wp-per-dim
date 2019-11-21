@@ -7,6 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="row">
         <div class="col-md-12">
             <table class="table wppd-table table-dashboard-km">
+                <thead>
+                    <tr>
+                        <th colspan="3"><h4><?php _e('KM Dashboard', 'wppd'); ?></h4></th>
+                    </tr>
+                </thead>
                 <tbody class="items">
                     <?php foreach($datas as $data): ?>
                     <tr class="item-row">

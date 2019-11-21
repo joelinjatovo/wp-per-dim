@@ -28,7 +28,7 @@ class Menus implements HooksInterface{
     }
     
     public function dashboard_menu(){
-        $welcome_page = add_submenu_page('wppd', __( 'Welcome to WpPerDim', 'wppd' ) , __( 'Welcome', 'wppd' ), 'manage_options', 'wppd', array($this, "welcome_page"), null, 0);
+        $welcome_page = add_submenu_page('wppd', __( 'Welcome to WpPerDim', 'wppd' ) , __( 'Shortcodes', 'wppd' ), 'manage_options', 'wppd', array($this, "welcome_page"), null, 0);
         add_action( 'load-' . $welcome_page, array( $this, 'welcome_page_init' ) );
     }
     

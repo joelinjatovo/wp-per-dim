@@ -3,40 +3,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="wrap nexway-wrap">
+<div class="wrap wppd-wrap">
     <h1 class="wp-heading-inline"><?php echo __( 'Liste des données', 'wppd' ); ?></h1>
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=create' ) ); ?>" class="page-title-action">Ajouter</a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=create' ) ); ?>" class="page-title-action"><?php echo __( 'Ajouter', 'wppd' ); ?></a>
     <hr class="wp-header-end">
     <div class="about-text"></div>
     <div class="col-wrap">
         <form id="posts-filter" method="post">
-            <div class="tablenav top" style="display:none;">
-                <div class="alignleft actions bulkactions">
-                    <label for="bulk-action-selector-top" class="screen-reader-text">Sélectionnez l’action groupée</label><select name="action" id="bulk-action-selector-top">
-                    <option value="-1">Actions groupées</option>
-                        <option value="delete">Supprimer</option>
-                    </select>
-                    <input type="submit" id="doaction" class="button action" value="Appliquer">
-                </div>
-                <div class="tablenav-pages one-page"><span class="displaying-num">1 élément</span>
-                <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
-                <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
-                <span class="paging-input"><label for="current-page-selector" class="screen-reader-text">Page actuelle</label><input class="current-page" id="current-page-selector" type="text" name="paged" value="1" size="1" aria-describedby="table-paging"><span class="tablenav-paging-text"> sur <span class="total-pages">1</span></span></span>
-                <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
-                <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span></span>
-                </div>
-                <br class="clear">
-            </div>
             <div class="tablenav top">
             </div>
             <table class="wp-list-table widefat fixed striped tags">
                 <thead>
                     <tr>
-                        <td id="cb" class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-1">Tout sélectionner</label><input id="cb-select-all-1" type="checkbox"></td>
-                        <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a href=""><span>Type</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="slug" class="manage-column column-slug sortable desc"><a href=""><span>Lien</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="slug" class="manage-column column-slug sortable desc"><a href=""><span>Indicateur</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="posts" class="manage-column column-posts num sortable desc"><a href=""><span>Total</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Indicateur', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="link" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Lien connexe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="type" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Type', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="data" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Données', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
 
@@ -44,49 +26,34 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php foreach($models as $item): ?>
                         <?php $model = \WpPerDim\Models\App\Report::fromWp($item); ?>
                         <tr id="tag-<?php echo $model->getPkValue(); ?>" class="level-0">
-                            <th scope="row" class="check-column">&nbsp;</th>
-                            <td class="name column-name has-row-actions column-primary" data-colname="Titre"><strong>
-                                <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»"><?php echo $model->type; ?></a></strong><br>
+                            <td class="name column-name has-row-actions column-primary" data-colname="<?php echo __( 'Indicateur', 'wppd' ); ?>"><strong>
+                                <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>"><?php echo ( $indicator = $model->getIndicator() ) ? $indicator->title : ''; ?></a></strong><br>
                                 <div class="row-actions">
-                                    <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Modifier «&nbsp;<?php echo $model->title; ?>&nbsp;»">Modifier</a> | </span>
-                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="Supprimer «&nbsp;<?php echo $model->title; ?>&nbsp;»">Supprimer</a> | </span>
-                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="Voir «&nbsp;<?php echo $model->title; ?>&nbsp;»">Afficher</a></span>
+                                    <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Modifier</a> | </span>
+                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="<?php echo sprintf( __( 'Supprimer «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Supprimer</a> | </span>
+                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Voir «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Afficher</a></span>
                                 </div>
                             </td>
-                            <td class="slug column-slug" data-colname="Libellé"><?php echo $model->link; ?></td>
-                            <td class="slug column-slug" data-colname="Libellé"><?php echo ( $indicator = $model->getIndicator() ) ? $indicator->title : ''; ?></td>
-                            <td class="posts column-posts" data-colname="Total"><a href="">1</a></td>
+                            <td class="link column-link" data-colname="<?php echo __( 'Lien connexe', 'wppd' ); ?>"><?php echo $model->link; ?></td>
+                            <td class="type column-type" data-colname="<?php echo __( 'Type', 'wppd' ); ?>"><?php echo $model->type; ?></td>
+                            <td class="data column-data" data-colname="<?php echo __( 'Données', 'wppd' ); ?>">
+                                <?php foreach($model->getResults() as $result): ?>
+                                <span class="result-item"><span class="result-value"><?php echo $result->value; ?></span><span class="result-period"></span></span>
+                                <?php endforeach; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
 
                 <tfoot>
                     <tr>
-                        <td class="manage-column column-cb check-column"><label class="screen-reader-text" for="cb-select-all-2">Tout sélectionner</label><input id="cb-select-all-2" type="checkbox"></td>
-                        <th scope="col" class="manage-column column-name column-primary sortable desc"><a href=""><span>Type</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span>Lien</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span>Indicator</span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-posts num sortable desc"><a href=""><span>Total</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Indicateur', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-link sortable desc"><a href=""><span><?php echo __( 'Lien connexe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-type sortable desc"><a href=""><span><?php echo __( 'Type', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-data sortable desc"><a href=""><span><?php echo __( 'Données', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>
             </table>
-            <div class="tablenav bottom" style="display:none;">
-                <div class="alignleft actions bulkactions">
-                    <label for="bulk-action-selector-bottom" class="screen-reader-text">Sélectionnez l’action groupée</label><select name="action2" id="bulk-action-selector-bottom">
-                    <option value="-1">Actions groupées</option>
-                        <option value="delete">Supprimer</option>
-                    </select>
-                    <input type="submit" id="doaction2" class="button action" value="Appliquer">
-                </div>
-                <div class="tablenav-pages one-page"><span class="displaying-num">1 élément</span>
-                    <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
-                    <span class="screen-reader-text">Page actuelle</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">1 sur <span class="total-pages">1</span></span></span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
-                    <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span></span>
-                </div>
-                <br class="clear">
-            </div>
         </form>
     </div>
 </div>

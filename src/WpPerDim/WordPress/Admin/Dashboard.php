@@ -15,7 +15,7 @@ class Dashboard extends WelcomePage {
 	 */
 	public function __construct() {
 		$this->id    = 'wppd';
-		$this->label = __( 'Welcome', 'wppd' );
+		$this->label = __( 'Shortcodes', 'wppd' );
 		parent::__construct();
 	}
 
@@ -32,16 +32,24 @@ class Dashboard extends WelcomePage {
 
 				array(
 					'type'  => 'title',
-					'title' => __( 'Dashboard', 'wppd' ),
-					'desc'  => __( 'Description', 'wppd' ),
+					'title' => __( 'Shortcodes', 'wppd' ),
+					//'desc'  => __( 'Description', 'wppd' ),
 					'id'    => 'wppd_dashboard',
 				),
 
 				array(
 					'type'  => 'notice',
 					'class' => 'wppd-notice wppd-notice-important',
-					//'title' => __( 'Important', 'WpPerDim' ),
-					'desc'  => __( 'Notice', 'wppd' ),
+					'title' => __( 'Gaphe', 'wppd' ),
+					'desc'  => __( 'Utilisez le shortcode <code>[wppd_graph]</code> pour afficher le graphe.', 'wppd' ),
+					'id'    => 'dashboard-notice',
+				),
+
+				array(
+					'type'  => 'notice',
+					'class' => 'wppd-notice wppd-notice-important',
+					'title' => __( 'Tableau de bord', 'wppd' ),
+					'desc'  => __( 'Utilisez le shortcode <code>[wppd_dashboard type="km|cf"]</code> pour afficher le tableau de bord km ou cf.', 'wppd' ),
 					'id'    => 'dashboard-notice',
 				),
 
