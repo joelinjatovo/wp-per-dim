@@ -4,18 +4,18 @@ namespace WpPerDim\Models\App;
 use WpPerDim\Models\BaseModel;
 
 /**
- * Unit
+ * Organism
  *
  * @author JOELINJATOVO
  * @version 1.0.0
  * @since 1.0.0
  * @see WpPerDim\Models\BaseModel
  */
-class Unit extends BaseModel{
+class Organism extends BaseModel{
     /**
     * @var $_table String
     */
-    protected static $_table = 'wppd_units';
+    protected static $_table = 'wppd_organisms';
     
     /**
     * @var $_primaryKey String
@@ -30,7 +30,6 @@ class Unit extends BaseModel{
         'id',
         'title',
         'label',
-        'organism_id',
     ];
     
     /**
@@ -43,10 +42,26 @@ class Unit extends BaseModel{
         parent::delete();
     }
     
+    public function getUnits(){
+        global $wpdb;
+        $table_name = $wpdb->prefix.Unit::getTable();
+        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `organism_id` = %d;", [$this->getPkValue()]);
+        $results = $wpdb->get_results($sql);
+        if(is_array($results)){
+            $output = [];
+            foreach($results as $result){
+                $output[] = Unit::fromWp($result);
+            }
+            return $output;
+        }else{
+            return [];
+        }
+    }
+    
     public function getIndicators(){
         global $wpdb;
         $table_name = $wpdb->prefix.Indicator::getTable();
-        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `unit_id` = %d;", [$this->getPkValue()]);
+        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `organism_id` = %d;", [$this->getPkValue()]);
         $results = $wpdb->get_results($sql);
         if(is_array($results)){
             $output = [];
@@ -57,10 +72,6 @@ class Unit extends BaseModel{
         }else{
             return [];
         }
-    }
-    
-    public function getOrganism(){
-        return Organism::find((int) $this->organism_id);
     }
     
 }

@@ -32,6 +32,7 @@ class Indicator extends BaseModel{
         'description',
         'graph',
         'unit_id',
+        'organism_id',
     ];
     
     /**
@@ -81,6 +82,10 @@ class Indicator extends BaseModel{
         }else{
             return [];
         }
+    }
+    
+    public function getOrganism(){
+        return Organism::find((int) $this->organism_id);
     }
     
 }

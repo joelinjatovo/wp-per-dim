@@ -25,11 +25,22 @@ class Database{
         
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        $table_name = $wpdb->prefix . "wppd_units";	   		
+        $table_name = $wpdb->prefix . "wppd_organisms";	   		
         $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
             `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
             `title`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `label`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci
+        );";
+        $wpdb->query($sql);
+        echo "Error $table_name: $wpdb->last_error \n";
+
+        $table_name = $wpdb->prefix . "wppd_units";	   		
+        $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
+            `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+            `title`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `label`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `organism_id`     BIGINT(20),
+            INDEX (`organism_id`)
         );";
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";
@@ -41,7 +52,9 @@ class Database{
             `description` LONGTEXT     COLLATE utf8mb4_unicode_520_ci,
             `graph`       VARCHAR(100) COLLATE utf8mb4_unicode_520_ci,
             `unit_id`     BIGINT(20),
-            INDEX (`unit_id`)
+            `organism_id`     BIGINT(20),
+            INDEX (`unit_id`),
+            INDEX (`organism_id`)
         );";
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";
@@ -105,6 +118,7 @@ class Database{
     public function uninstall() {
         global $wpdb;
         $table_names = [
+            $wpdb->prefix . 'wppd_organisms',
             $wpdb->prefix . 'wppd_units',
             $wpdb->prefix . 'wppd_indicators',
             $wpdb->prefix . 'wppd_reports',

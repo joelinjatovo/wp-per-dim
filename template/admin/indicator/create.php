@@ -36,6 +36,16 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p></p>
         </div>
         <div class="form-field term-parent-wrap">
+            <label for="indicator-organism"><?php echo __( 'Organisme', 'wppd' ); ?></label>
+            <select name="indicator-organism" id="indicator-organism" class="postform" style="min-width: 300px;">
+                <option value="-1"><?php echo __( 'Aucun organisme', 'wppd' ); ?></option>
+                <?php foreach($organisms as $organism): ?>
+                    <option class="level-0" value="<?php echo $organism->id; ?>" <?php selected($organism->id, $model->organism_id, true); ?> ><?php echo $organism->title; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <p></p>
+        </div>
+        <div class="form-field term-parent-wrap">
             <label for="indicator-unit"><?php echo __( 'Periode de suivi de l\'indicateur', 'wppd' ); ?></label>
             <div class="repeatable-wrapper">
                 <div class="repeatable">
@@ -46,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <input type="hidden" name="indicator-periods[{{row-count-placeholder}}][id]" />
                                     <input type="text" name="indicator-periods[{{row-count-placeholder}}][title]" />
                                 </td>
-                                <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
+                                <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                             </tr>
                             <?php $periods = $model->getPeriods(); ?>
                             <?php if( count($periods) > 0 ): ?>
@@ -56,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                             <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
                                             <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
                                         </td>
-                                        <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
+                                        <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -65,13 +75,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                                         <input type="hidden" name="indicator-periods[0][id]" value="" />
                                         <input type="text" name="indicator-periods[0][title]" value="" />
                                     </td>
-                                    <td width="10%"><button class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
+                                    <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td width="10%" colspan="3"><button class="add"><?php echo __( 'Ajouter', 'wppd' ); ?></button></td>
+                                <td width="10%" colspan="3"><button type="button" class="add"><?php echo __( 'Ajouter', 'wppd' ); ?></button></td>
                             </tr>
                         </tfoot>
                     </table>

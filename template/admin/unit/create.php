@@ -25,6 +25,16 @@ if ( ! defined( 'ABSPATH' ) ) {
             <input name="unit-label" id="unit-label" type="text" value="<?php echo $model->label; ?>" size="40">
             <p></p>
         </div>
+        <div style="display:none;" class="form-field term-parent-wrap">
+            <label for="unit-organism"><?php echo __( 'Organisme', 'wppd' ); ?></label>
+            <select name="unit-organism" id="unit-organism" class="postform" style="min-width: 300px;">
+                <option value="-1"><?php echo __( 'Aucun organisme', 'wppd' ); ?></option>
+                <?php foreach($organisms as $organism): ?>
+                    <option class="level-0" value="<?php echo $organism->id; ?>" <?php selected($organism->id, $model->organism_id, true); ?> ><?php echo $organism->title; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <p></p>
+        </div>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
 				<button name="save" class="button-primary wppd-save-button" type="submit" value="<?php esc_attr_e( 'Enregistrer', 'wppd' ); ?>"><?php esc_html_e( 'Enregistrer', 'wppd' ); ?></button>

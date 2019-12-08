@@ -3,6 +3,7 @@ namespace WpPerDim\WordPress\Admin;
 
 use WpPerDim\Models\App\Report;
 use WpPerDim\Models\App\Indicator;
+use WpPerDim\Models\App\Organism;
 use WpPerDim\Models\App\Result;
 
 /**
@@ -42,6 +43,13 @@ class Datas extends WelcomePage{
                     $model = Report::find($id);
                 }
                 if(!$model){ $model = new Report(); }
+                
+                $models = Organism::getAll();
+                $organisms = [];
+                foreach($models as $organism){
+                    $organisms[] = Organism::fromWp($organism);
+                }
+                
                 $models = Indicator::getAll();
                 $indicators = [];
                 foreach($models as $indicator){

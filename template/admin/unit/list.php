@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <tr>
                         <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Titre', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="slug" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Libellé', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th style="display:none;" scope="col" id="organism" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
 
@@ -33,6 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 </div>
                             </td>
                             <td class="slug column-slug" data-colname="<?php echo __( 'Libellé', 'wppd' ); ?>"><?php echo $model->label; ?></td>
+                            <td style="display:none;" class="slug column-organism" data-colname="<?php echo __( 'Organisme', 'wppd' ); ?>"><?php $organism = $model->getOrganism(); echo $organism ? $organism->title : __( 'Tous', 'wppd' ) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -40,7 +42,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <tfoot>
                     <tr>
                         <th scope="col" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Titre', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Libellé', 'wppd' ); ?>Libellé</span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Libellé', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th style="display:none;" scope="col" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>
             </table>

@@ -18,6 +18,7 @@ class Menus implements HooksInterface{
     public function hooks(){
         add_action( "admin_menu", array($this, 'admin_menu') );
         add_action( "admin_menu", array($this, 'dashboard_menu') );
+        add_action( "admin_menu", array($this, 'organisms_menu') );
         add_action( "admin_menu", array($this, 'units_menu') );
         add_action( "admin_menu", array($this, 'indicators_menu') );
         add_action( "admin_menu", array($this, 'datas_menu') );
@@ -30,6 +31,11 @@ class Menus implements HooksInterface{
     public function dashboard_menu(){
         $welcome_page = add_submenu_page('wppd', __( 'Welcome to WpPerDim', 'wppd' ) , __( 'Shortcodes', 'wppd' ), 'manage_options', 'wppd', array($this, "welcome_page"), null, 0);
         add_action( 'load-' . $welcome_page, array( $this, 'welcome_page_init' ) );
+    }
+    
+    public function organisms_menu(){
+        $page = add_submenu_page('wppd', __( 'Liste: Organismes', 'wppd' ) , __( 'Organismes', 'wppd' ), 'manage_options', 'wppd-organisms', array($this, "organisms_page"), null, 0);
+        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
     public function units_menu(){
@@ -77,6 +83,10 @@ class Menus implements HooksInterface{
 	}
     
     public function welcome_page(){
+        Welcome::output();
+    }
+    
+    public function organisms_page(){
         Welcome::output();
     }
     

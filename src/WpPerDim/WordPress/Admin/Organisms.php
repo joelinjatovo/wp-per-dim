@@ -1,24 +1,23 @@
 <?php
 namespace WpPerDim\WordPress\Admin;
 
-use WpPerDim\Models\App\Unit;
 use WpPerDim\Models\App\Organism;
 
 /**
- * Units
+ * Organisms
  *
  * @author JOELINJATOVO Haja
  * @version 1.0.0
  * @since 1.0.0
  */
-class Units extends WelcomePage{
+class Organisms extends WelcomePage{
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id    = 'wppd-units';
-		$this->label = __( 'Unités', 'wppd' );
+		$this->id    = 'wppd-organisms';
+		$this->label = __( 'Organismes', 'wppd' );
 		parent::__construct();
 	}
 
@@ -38,40 +37,39 @@ class Units extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Unit::find($id);
+                    $model = Organism::find($id);
                 }
-                if(!$model){ $model = new Unit(); }
-                $organisms = Organism::getAll();
+                if(!$model){ $model = new Organism(); }
                 
-                $template = WPPD_DIR . '/template/admin/unit/create.php';
+                $template = WPPD_DIR . '/template/admin/organism/create.php';
                 break;
             case 'show':
                 $id = 0;
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Unit::find($id);
+                    $model = Organism::find($id);
                 }
-                if(!$model){ $model = new Unit(); }
-                $template = WPPD_DIR . '/template/admin/unit/show.php';
+                if(!$model){ $model = new Organism(); }
+                $template = WPPD_DIR . '/template/admin/organism/show.php';
                 break;
             case 'delete':
                 $id = 0;
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Unit::find($id);
+                    $model = Organism::find($id);
                     if($model){
                         $model->delete(); 
                     }
                 }
                 /** list all */
-                $models = Unit::getAll();
-                $template = WPPD_DIR . '/template/admin/unit/list.php';
+                $models = Organism::getAll();
+                $template = WPPD_DIR . '/template/admin/organism/list.php';
                 break;
             default:
-                $models = Unit::getAll();
-                $template = WPPD_DIR . '/template/admin/unit/list.php';
+                $models = Organism::getAll();
+                $template = WPPD_DIR . '/template/admin/organism/list.php';
                 break;
         }
         
@@ -97,14 +95,13 @@ class Units extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Unit::find($id);
+                    $model = Organism::find($id);
                 }
-                if(!$model){ $model = new Unit(); }
+                if(!$model){ $model = new Organism(); }
                 
-                if(isset($_POST['unit-title'])){
-                    $model->title = $_POST['unit-title'];
-                    $model->label = $_POST['unit-label'];
-                    $model->organism_id = $_POST['unit-organism'];
+                if(isset($_POST['organism-title'])){
+                    $model->title = $_POST['organism-title'];
+                    $model->label = $_POST['organism-label'];
                     $model->save();
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }

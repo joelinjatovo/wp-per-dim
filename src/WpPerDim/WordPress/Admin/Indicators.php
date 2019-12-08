@@ -4,6 +4,7 @@ namespace WpPerDim\WordPress\Admin;
 use WpPerDim\Models\App\Indicator;
 use WpPerDim\Models\App\Period;
 use WpPerDim\Models\App\Unit;
+use WpPerDim\Models\App\Organism;
 
 /**
  * Indicators
@@ -43,6 +44,7 @@ class Indicators extends WelcomePage{
                 }
                 if(!$model){ $model = new Indicator(); }
                 $units = Unit::getAll();
+                $organisms = Organism::getAll();
                 
                 $template = WPPD_DIR . '/template/admin/indicator/create.php';
                 break;
@@ -115,6 +117,7 @@ class Indicators extends WelcomePage{
                     $model->title = $_POST['indicator-title'];
                     $model->description = $_POST['indicator-description'];
                     $model->unit_id = $_POST['indicator-unit'];
+                    $model->organism_id = $_POST['indicator-organism'];
                     $model->graph = $_POST['indicator-graph'];
                     $model->save();
                     

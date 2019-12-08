@@ -22,9 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php endif; ?>
             <select <?php echo ( $model && ( $model->getPkValue() > 0 ) ) ? 'disabled' : ''; ?> name="report-indicator" id="report-indicator" data-id="<?php echo $model->getPkValue(); ?>" class="postform" style="min-width: 300px;">
                 <option class="level-0" value="-1"><?php echo __( 'Sélectionnez un indicateur', 'wppd' ); ?></option>
-                <?php foreach($indicators as $indicator): ?>
-                    <?php $reports = $indicator->getReports(); ?>
-                    <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> <?php count($reports) > 0 ? 'disabled' : '' ; ?> ><?php echo $indicator->title; ?></option>
+                <?php foreach($organisms as $organism): ?>
+                    <optgroup label="<?php echo $organism->title; ?>">
+                        <?php $indicators = $organism->getIndicators(); ?>
+                        <?php foreach($indicators as $indicator): ?>
+                            <?php $reports = $indicator->getReports(); ?>
+                            <option class="level-0" value="<?php echo $indicator->id; ?>" <?php selected($indicator->id, $model->indicator_id, true); ?> <?php count($reports) > 0 ? 'disabled' : '' ; ?> ><?php echo $indicator->title; ?></option>
+                        <?php endforeach; ?>
+                    </optgroup>
                 <?php endforeach; ?>
             </select>
             <p></p>

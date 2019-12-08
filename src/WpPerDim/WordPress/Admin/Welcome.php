@@ -38,6 +38,7 @@ class Welcome{
             $welcomes = array();
             
             $welcomes[] = new Dashboard();
+            $welcomes[] = new Organisms();
             $welcomes[] = new Units();
             $welcomes[] = new Indicators();
             $welcomes[] = new Datas();
