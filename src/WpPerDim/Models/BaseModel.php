@@ -396,10 +396,13 @@ class BaseModel {
     *
     * @return Array
     */
-    public static function getAll($limit = 0){
+    public static function getAll($limit = 0, $order_by = null, $order = null){
         global $wpdb;
         $table_name = $wpdb->prefix.static::$_table;
         $sql = 'SELECT * FROM '.$table_name;
+        if($order_by & $order){
+            $sql .= ' ORDER BY '.$order_by.' '.$order;
+        }
         if($limit>0){
             $sql .= ' LIMIT '.$limit;
         }
@@ -417,13 +420,13 @@ class BaseModel {
     *
     * @return Array
     */
-    public static function getAllBy($key, $value, $limit = 0){
+    public static function getAllBy($key, $value, $limit = 0, $order_by = null, $order = null){
         global $wpdb;
         $table_name = $wpdb->prefix.static::$_table;
         if( is_null($value) ){
-            $sql = 'SELECT * FROM ' . $table_name . ' WHERE '.$key.' IS NULL '. ( $limit>0? ' LIMIT '.$limit:'' ).';';
+            $sql = 'SELECT * FROM ' . $table_name . ' WHERE '.$key.' IS NULL '. ($order_by & $order ? ' ORDER BY '.$order_by.' '.$order : '') . ( $limit>0? ' LIMIT '.$limit:'' ).';';
         }else{
-            $sql = $wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE '.$key.' = %s '. ( $limit>0? ' LIMIT '.$limit:'' ).';', $value);
+            $sql = $wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE '.$key.' = %s '. ($order_by & $order ? ' ORDER BY '.$order_by.' '.$order : ''). ( $limit>0? ' LIMIT '.$limit:'' ).';', $value);
         }
         
         $results = $wpdb->get_results($sql);

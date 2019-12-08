@@ -33,6 +33,7 @@ class Shortcode implements HooksInterface{
 			'limit'    => '12',
 			'orderby'  => 'rand',
 			'order'    => 'DESC',
+			'organism' => '0',
 			'type'     => 'cf', // cf|km
         );
         
@@ -44,7 +45,12 @@ class Shortcode implements HooksInterface{
             $attributes['type'] = 'km';
         }
 
-        $indicators = Indicator::getAll();
+        $organism = (int) $attributes['organism'];
+        if($organism){
+            $indicators = Indicator::getAllBy('organism_id', $organism, 0, 'title', 'ASC');
+        }else{
+            $indicators = Indicator::getAll(0, 'title', 'ASC');
+        }
 
         $datas = [];
         foreach($indicators as $indicator){
@@ -123,13 +129,20 @@ class Shortcode implements HooksInterface{
 			'limit'    => '12',
 			'orderby'  => 'rand',
 			'order'    => 'DESC',
+			'organism' => '0',
 			'type'     => 'cf', // cf|km
         );
         
         $attributes = shortcode_atts($default, (array) $atts);
         
+        $organism = (int) $attributes['organism'];
+        if($organism){
+            $items = Indicator::getAllBy('organism_id', $organism, 0, 'title', 'ASC');
+        }else{
+            $items = Indicator::getAll(0, 'title', 'ASC');
+        }
+        
         $indicators = [];
-        $items = Indicator::getAll();
         foreach($items as $item){
             $indicator = Indicator::fromWp($item);
             

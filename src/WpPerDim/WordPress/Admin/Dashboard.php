@@ -41,7 +41,7 @@ class Dashboard extends WelcomePage {
 					'type'  => 'notice',
 					'class' => 'wppd-notice wppd-notice-important',
 					'title' => __( 'Gaphe', 'wppd' ),
-					'desc'  => __( 'Utilisez le shortcode <code>[wppd_graph]</code> pour afficher le graphe.', 'wppd' ),
+					'desc'  => __( 'Utilisez le shortcode <code>[wppd_graph organism="0|integer"]</code> pour afficher le graphe.', 'wppd' ),
 					'id'    => 'dashboard-notice',
 				),
 
@@ -49,7 +49,7 @@ class Dashboard extends WelcomePage {
 					'type'  => 'notice',
 					'class' => 'wppd-notice wppd-notice-important',
 					'title' => __( 'Tableau de bord', 'wppd' ),
-					'desc'  => __( 'Utilisez le shortcode <code>[wppd_dashboard type="km|cf"]</code> pour afficher le tableau de bord km ou cf.', 'wppd' ),
+					'desc'  => __( 'Utilisez le shortcode <code>[wppd_dashboard organism="0|integer" type="km|cf"]</code> pour afficher le tableau de bord km ou cf.', 'wppd' ),
 					'id'    => 'dashboard-notice',
 				),
 
