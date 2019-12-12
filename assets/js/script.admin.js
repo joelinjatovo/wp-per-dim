@@ -1,10 +1,19 @@
 jQuery(document).ready(function(){
     var request;
     jQuery( "#report-organism" ).change( function() {
+        submit(jQuery(this));
+    });
+    
+    var val = jQuery("#report-organism").find(":selected").val();
+    if(val>0){
+        submit(jQuery("#report-organism"));
+    }
+    
+    function submit(container){
         var data = {
             'action': 'select_organism',
-            'report_id' : jQuery(this).attr('data-id'),
-            'organism_id' : jQuery(this).find(":selected").val()
+            'report_id' : container.attr('data-id'),
+            'organism_id' : container.find(":selected").val()
         };
         var options   = {
             url : wppd_object_var.ajax_url,
@@ -28,5 +37,5 @@ jQuery(document).ready(function(){
             jQuery('.preloader').fadeOut();
             console.log(err);
         });
-    });
+    }
 });

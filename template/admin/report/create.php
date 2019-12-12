@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     <form method="post" id="mainform" action="" enctype="multipart/form-data">
         <?php wp_nonce_field( 'wppd-welcomes' ); ?>
         <?php if( $model && ( $model->getPkValue() > 0 ) ) : ?>
-            <h1 class="wp-heading-inline"><?php echo __( 'Modifier une donnée', 'wppd' ); ?></h1>
+            <h1 class="wp-heading-inline"><?php echo sprintf(__( 'Modifier les données: %s', 'wppd' ), $model->title); ?></h1>
             <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=create' ) ); ?>" class="page-title-action"><?php echo __( 'Ajouter', 'wppd' ); ?></a>
         <?php else: ?>
-            <h1 class="wp-heading-inline"><?php echo __( 'Ajouter une donnée', 'wppd' ); ?></h1>
+            <h1 class="wp-heading-inline"><?php echo __( 'Ajouter ou Modifier les données', 'wppd' ); ?></h1>
         <?php endif; ?>
         <hr class="wp-header-end">
         
@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <input type="hidden" name="report-organism" value="<?php echo $model->organism_id; ?>">
             <?php endif; ?>
             <select <?php echo ( $model && ( $model->getPkValue() > 0 ) ) ? 'disabled' : ''; ?> name="report-organism" id="report-organism" data-id="<?php echo $model->getPkValue(); ?>" class="postform" style="min-width: 300px;">
-                <option class="level-0" value="-1"><?php echo __( 'Sélectionnez un organisme', 'wppd' ); ?></option>
+                <option class="level-0"><?php echo __( 'Sélectionnez un organisme', 'wppd' ); ?></option>
                 <?php foreach($organisms as $organism): ?>
-                    <option class="level-0" value="<?php echo $organism->id; ?>" <?php selected($organism->id, $model->organism_id, true); ?> ><?php echo $organism->title; ?></option>
+                    <option class="level-0" value="<?php echo $organism->id; ?>" <?php selected($organism->id, $model->id, true); ?> ><?php echo $organism->title; ?></option>
                 <?php endforeach; ?>
             </select>
             <p></p>
