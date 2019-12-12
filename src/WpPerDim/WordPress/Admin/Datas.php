@@ -114,37 +114,48 @@ class Datas extends WelcomePage{
                 }
                 if(!$model){ $model = new Report(); }
                 
-                if(isset($_POST['report-indicator'])){
-                    $model->link = $_POST['report-link'];
-                    $model->type = $_POST['report-type'];
-                    $model->indicator_id = $_POST['report-indicator'];
-                    $model->save();
-                    
-                    
-                    if(isset($_POST['report-results']) && is_array($_POST['report-results']) ){
-                        $news = [];
-                        $results = $_POST['report-results'];
-                        foreach($results as $key => $value){
-                            if( is_array($value) && isset($value['id']) && isset($value['period']) && isset($value['value'])) {
-                                $result = Result::find((int) $value['id']);
-                                if( ! $result ) {
-                                    $result = new Result();
-                                    $result->period_id = $value['period'];
-                                    $result->report_id = $model->getPkValue();
+                if( isset($_POST['report-organism']) && is_int($_POST['report-organism']) ){
+                    $_organism = Organism::find((int) $_POST['report-organism'] );
+                    if( $_organism ){
+                        if(isset($_POST['reports']) && is_array($_POST['reports']) ){
+                            $reports = $_POST['reports'];
+                            foreach($reports as $report){
+                                if( isset($report['indicator']) && is_int($report['indicator']) ) {
+                                    $_indicator = Indicator::find((int) $report['indicator']);
+                                    if($_indicator){
+                                        // Save or Update Report
+                                        $_report = Report::getFirstBy('indicator_id', $report['indicator']);
+                                        if(!$_report){
+                                            $_report = new Report();
+                                            $_report->title = sprintf(__("Rapport de l'indicateur: %s", 'wppd'), $_indicator->title);
+                                            $_report->indicator_id = $_indicator->getPkValue();
+                                            $_report->save();
+                                        }
+
+                                        // Save Result
+                                        if(isset($report['results']) && is_array($report['results']) ){
+                                            $results = $report['results'];
+                                            foreach($results as $result){
+                                                $_result = Result::find((int) $result['id']);
+                                                if(!$_result){
+                                                    $_result = new Result();
+                                                }
+                                                $_result->report_id = $_report->getPkValue();
+                                                $_result->value     = (int) $result['value'];
+                                                $_result->period_id = (int) $result['period'];
+                                                $_result->save();
+                                            }
+                                        }
+                                    }
                                 }
-                                $result->value = $value['value'];
-                                $result->save();
-                                
-                                $news[] = $result->getPkValue();
                             }
                         }
                         
-                        global $wpdb;
-                        $table_name = $wpdb->prefix.Result::getTable();
-                        $ids = implode( ',', array_map( 'absint', $news ) );
-                        $wpdb->query( "DELETE FROM $table_name WHERE `report_id` = {$model->getPkValue()} AND `id` NOT IN($ids)" );
+                        Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
+                    }else{
+                        Welcome::add_error(__('Votre demande n\'a pas été abouti. Une erreur est survenue. Veuillez-réessayer s\'il vous plaît!', 'nexway'));
                     }
-                    Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
+                    
                 }
                 
                 break;
