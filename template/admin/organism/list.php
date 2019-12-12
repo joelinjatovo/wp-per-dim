@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>"><?php echo $model->title; ?></a></strong><br>
                                 <div class="row-actions">
                                     <span class="edit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Modifier</a> | </span>
-                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="<?php echo sprintf( __( 'Supprimer «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Supprimer</a> | </span>
-                                    <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Voir «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Afficher</a></span>
+                                    <span class="data"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier les données «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Modifier les données</a> | </span>
+                                    <span class="trash"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=delete&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" class="submitdelete" aria-label="<?php echo sprintf( __( 'Supprimer «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Supprimer</a></span>
                                 </div>
                             </td>
                         </tr>

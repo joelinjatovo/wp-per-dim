@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             </td>
                             <td class="description column-description" data-colname="<?php echo __( 'Description', 'wppd' ); ?>"><?php echo $model->description; ?></td>
                             <td class="unit column-unit" data-colname="<?php echo __( 'Unité', 'wppd' ); ?>"><?php $unit = $model->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
-                            <td class="unit column-organism" data-colname="<?php echo __( 'Organisme', 'wppd' ); ?>"><?php $organism = $model->getOrganism(); echo $organism ? $organism->title : __('Non renseigné', 'wppd') ?></td>
+                            <td class="unit column-organism" data-colname="<?php echo __( 'Organisme', 'wppd' ); ?>"><?php $organism = $model->getOrganism(); echo $organism ? '<a href="' . esc_url( admin_url( 'admin.php?page=wppd-datas&id=' . esc_attr( $model->getPkValue() ) ) ). '" >' . $organism->title . '</a>' : __('Non renseigné', 'wppd') ?></td>
                             <td class="graph column-type" data-colname="<?php echo __( 'Type', 'wppd' ); ?>"><?php echo $model->type; ?></td>
                             <td class="graph column-graph" data-colname="<?php echo __( 'Graphe', 'wppd' ); ?>"><?php echo $model->graph; ?></td>
                         </tr>

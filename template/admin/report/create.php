@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <?php wp_nonce_field( 'wppd-welcomes' ); ?>
         <?php if( $model && ( $model->getPkValue() > 0 ) ) : ?>
             <h1 class="wp-heading-inline"><?php echo sprintf(__( 'Modifier les données: %s', 'wppd' ), $model->title); ?></h1>
-            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas&action=create' ) ); ?>" class="page-title-action"><?php echo __( 'Ajouter', 'wppd' ); ?></a>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-datas' ) ); ?>" class="page-title-action"><?php echo __( 'Ajouter', 'wppd' ); ?></a>
         <?php else: ?>
             <h1 class="wp-heading-inline"><?php echo __( 'Ajouter ou Modifier les données', 'wppd' ); ?></h1>
         <?php endif; ?>

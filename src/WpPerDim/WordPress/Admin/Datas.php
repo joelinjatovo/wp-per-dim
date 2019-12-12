@@ -33,6 +33,9 @@ class Datas extends WelcomePage{
         if( isset($_GET['id']) ) {
             $id = (int) $_GET['id'];
             $model = Organism::find($id);
+        }else if( isset($_POST['report-organism']) ){
+            $id = (int) $_POST['report-organism'];
+            $model = Organism::find($id);
         }
         if(!$model){ $model = new Organism(); }
         
@@ -60,13 +63,13 @@ class Datas extends WelcomePage{
             $id = (int) $_GET['id'];
         }
 
-        if( isset($_POST['report-organism']) && is_int($_POST['report-organism']) && ($id==$_POST['report-organism']) ){
+        if( isset($_POST['report-organism']) && is_numeric($_POST['report-organism']) ){
             $_organism = Organism::find((int) $_POST['report-organism'] );
             if( $_organism ){
                 if(isset($_POST['reports']) && is_array($_POST['reports']) ){
                     $reports = $_POST['reports'];
                     foreach($reports as $report){
-                        if( isset($report['indicator']) && is_int($report['indicator']) ) {
+                        if( isset($report['indicator']) && is_numeric($report['indicator']) ) {
                             $_indicator = Indicator::find((int) $report['indicator']);
                             if($_indicator){
                                 // Save or Update Report
