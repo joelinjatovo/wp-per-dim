@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WpPerDim
  * Description: Suivi des indicateurs
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: 
  * Text Domain: WpPerDim
  * Domain Path: /languages
