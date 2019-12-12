@@ -6,6 +6,7 @@ use WpPerDim\Systems\BaseController;
 use WpPerDim\Models\App\Report;
 use WpPerDim\Models\App\Organism;
 use WpPerDim\Models\App\Result;
+use WpPerDim\Models\App\Period;
 
 /**
  * AjaxController
@@ -30,40 +31,40 @@ class AjaxController extends BaseController{
                 $report = Report::find($report_id);
             }
             
-            $organism = false;
+            $organism = new Organism();
             if( $organism_id ){
                 $organism = Organism::find($organism_id);
             }
-            echo '<h1>helloworld</h1>';
-            /*
-            if( $organism && ( $report->indicator_id == $organism_id ) ) {
-                foreach($report->getResults() as $key => $result){
-                    ?>
-                    <tr class="row">
-                        <td width="10%"><span class="period"><?php echo ( $period = $result->getPeriod() ) ? $period->title : __('Non renseigné', 'wppd'); ?></span></td>
-                        <td width="80%">
-                            <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="<?php echo $result->getPkValue(); ?>" />
-                            <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $result->period_id; ?>" />
-                            <input type="text" name="report-results[<?php echo $key; ?>][value]" value="<?php echo $result->value; ?>" />
-                        </td>
+            
+            $indicators = $organism->getIndicators();
+            $periods = Period::getAll(0, 'order', 'ASC');
+            ?>
+            <table class="wp-list-table widefat fixed striped posts">
+                <thead>
+                    <tr>
+                        <td><?php echo __( 'Indicateurs', 'wppd' ); ?></td>
+                        <?php foreach($periods as $period) : ?>
+                            <td><?php echo $period->title; ?></td>
+                        <?php endforeach; ?>
+                        <td><?php echo __( 'Unité de mesure', 'wppd' ); ?></td>
+                        <td><?php echo __( 'Type de l\'indicateur', 'wppd' ); ?></td>
                     </tr>
-                    <?php
-                }
-            }elseif( $indicator ) {
-                foreach($indicator->getPeriods() as $key => $period){
-                    ?>
-                    <tr class="row" border="1">
-                        <td width="10%"><span class="period"><?php echo $period->title; ?></span></td>
-                        <td width="80%">
-                            <input type="hidden" name="report-results[<?php echo $key; ?>][id]" value="" />
-                            <input type="hidden" name="report-results[<?php echo $key; ?>][period]" value="<?php echo $period->getPkValue(); ?>" />
-                            <input type="number" name="report-results[<?php echo $key; ?>][value]" value="" />
-                        </td>
+                </thead>
+                <?php // Result => Period/Report => Indicator ?>
+                <?php foreach($indicators as $indicator) : ?>
+                    <tr>
+                        <td><?php echo $indicator->title; ?></td>
+                        <?php foreach($periods as $period) : ?>
+                            <td>
+                                <input type="number" name="results[][value]" placeholder="<?php echo sprintf(__( 'Valeur en %s', 'wppd' ), $period->title); ?>">
+                           </td>
+                        <?php endforeach; ?>
+                        <td><?php $unit = $indicator->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
+                        <td><?php echo $indicator->type; ?></td>
                     </tr>
-                    <?php
-                }
-            }
-            */
+                <?php endforeach; ?>
+            </table>
+            <?php
         }
         wp_die();
     }
