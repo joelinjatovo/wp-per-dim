@@ -4,7 +4,7 @@ namespace WpPerDim\Controllers;
 use WpPerDim\Systems\BaseController;
 
 use WpPerDim\Models\App\Report;
-use WpPerDim\Models\App\Indicator;
+use WpPerDim\Models\App\Organism;
 use WpPerDim\Models\App\Result;
 
 /**
@@ -20,22 +20,23 @@ class AjaxController extends BaseController{
         parent::__construct($view);
     }
     
-    public function selectIndicator(){
-        if ( isset( $_POST['indicator_id'] ) ){
-            $report_id = \wp_unslash( $_POST['report_id'] );
-            $indicator_id = \wp_unslash( $_POST['indicator_id'] );
+    public function selectOrganism(){
+        if ( isset( $_POST['report_id'] ) ){
+            $report_id   = \wp_unslash( $_POST['report_id'] );
+            $organism_id = \wp_unslash( $_POST['organism_id'] );
             
             $report = false;
             if( $report_id ){
                 $report = Report::find($report_id);
             }
             
-            $indicator = false;
-            if( $indicator_id ){
-                $indicator = Indicator::find($indicator_id);
+            $organism = false;
+            if( $organism_id ){
+                $organism = Organism::find($organism_id);
             }
-            
-            if( $report && ( $report->indicator_id == $indicator_id ) ) {
+            echo '<h1>helloworld</h1>';
+            /*
+            if( $organism && ( $report->indicator_id == $organism_id ) ) {
                 foreach($report->getResults() as $key => $result){
                     ?>
                     <tr class="row">
@@ -62,6 +63,7 @@ class AjaxController extends BaseController{
                     <?php
                 }
             }
+            */
         }
         wp_die();
     }

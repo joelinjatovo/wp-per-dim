@@ -20,8 +20,8 @@ class Menus implements HooksInterface{
         add_action( "admin_menu", array($this, 'dashboard_menu') );
         add_action( "admin_menu", array($this, 'units_menu') );
         add_action( "admin_menu", array($this, 'periods_menu') );
-        add_action( "admin_menu", array($this, 'indicators_menu') );
         add_action( "admin_menu", array($this, 'organisms_menu') );
+        add_action( "admin_menu", array($this, 'indicators_menu') );
         add_action( "admin_menu", array($this, 'datas_menu') );
     }
     

@@ -21,6 +21,6 @@ class Ajax implements HooksInterface{
         global $WpPerDim;
         $controller = new AjaxController($WpPerDim->view);
 
-        add_action('wp_ajax_select_indicator', array($controller, 'selectIndicator'));
+        add_action('wp_ajax_select_organism', array($controller, 'selectOrganism'));
     }
 }

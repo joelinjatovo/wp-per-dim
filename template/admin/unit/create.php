@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
         
         <div class="form-field form-required term-name-wrap">
             <label for="unit-title"><?php echo __( 'Titre de l\'unité', 'wppd' ); ?></label>
-            <input name="unit-title" id="unit-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true">
+            <input name="unit-title" id="unit-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true" required>
             <p><?php echo __( 'Ce titre est utilisé un peu partout sur votre site.', 'wppd' ); ?></p>
         </div>
             <div class="form-field term-slug-wrap">
             <label for="unit-label"><?php echo __( 'Libellé', 'wppd' ); ?></label>
-            <input name="unit-label" id="unit-label" type="text" value="<?php echo $model->label; ?>" size="40">
+            <input name="unit-label" id="unit-label" type="text" value="<?php echo $model->label; ?>" size="40" required>
             <p></p>
         </div>
         <div style="display:none;" class="form-field term-parent-wrap">

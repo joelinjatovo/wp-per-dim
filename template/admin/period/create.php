@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         
         <div class="form-field form-required term-name-wrap">
             <label for="period-title"><?php echo __( 'Titre de la période', 'wppd' ); ?></label>
-            <input name="period-title" id="period-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true">
+            <input name="period-title" id="period-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true" required>
             <p><?php echo __( 'Ce titre est utilisé un peu partout sur votre site.', 'wppd' ); ?></p>
         </div>
         

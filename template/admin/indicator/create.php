@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         
         <div class="form-field form-required term-name-wrap">
             <label for="indicator-title"><?php echo __( 'Titre de l\'indicateur', 'wppd' ); ?></label>
-            <input name="indicator-title" id="unit-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true">
+            <input name="indicator-title" required id="unit-title" type="text" value="<?php echo $model->title; ?>" size="40" aria-required="true" required>
             <p><?php echo __( 'Ce titre est utilisé un peu partout sur votre site.', 'wppd' ); ?></p>
         </div>
         <div class="form-field term-description-wrap">
@@ -36,7 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="form-field term-parent-wrap">
             <label for="indicator-unit"><?php echo __( 'Unité de mesure de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-unit" id="indicator-init" class="postform" style="min-width: 300px;">
-                <option value="-1"><?php echo __( 'Aucune unité', 'wppd' ); ?></option>
                 <?php foreach($units as $unit): ?>
                     <option class="level-0" value="<?php echo $unit->id; ?>" <?php selected($unit->id, $model->unit_id, true); ?> ><?php echo $unit->title; ?> ( <?php echo $unit->label; ?> )</option>
                 <?php endforeach; ?>
@@ -46,7 +45,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="form-field term-parent-wrap">
             <label for="indicator-organism"><?php echo __( 'Organisme', 'wppd' ); ?></label>
             <select name="indicator-organism" id="indicator-organism" class="postform" style="min-width: 300px;">
-                <option value="-1"><?php echo __( 'Aucun organisme', 'wppd' ); ?></option>
                 <?php foreach($organisms as $organism): ?>
                     <option class="level-0" value="<?php echo $organism->id; ?>" <?php selected($organism->id, $model->organism_id, true); ?> ><?php echo $organism->title; ?></option>
                 <?php endforeach; ?>
@@ -56,7 +54,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="form-field term-parent-wrap">
             <label for="indicator-graph"><?php echo __( 'Type de graphe de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
-                <option value="-1"><?php echo __( 'Sélectionnez un type de graphe', 'wppd' ); ?></option>
                 <option class="level-0" value="pie" <?php selected('pie', $model->graph, true); ?>><?php echo __( 'Pie', 'wppd' ); ?></option>
                 <option class="level-0" value="donut" <?php selected('donut', $model->graph, true); ?>><?php echo __( 'Donut', 'wppd' ); ?></option>
                 <option class="level-0" value="bar" <?php selected('bar', $model->graph, true); ?>><?php echo __( 'Bar Chart', 'wppd' ); ?></option>
