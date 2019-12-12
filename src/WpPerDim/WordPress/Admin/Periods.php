@@ -1,26 +1,23 @@
 <?php
 namespace WpPerDim\WordPress\Admin;
 
-use WpPerDim\Models\App\Indicator;
 use WpPerDim\Models\App\Period;
-use WpPerDim\Models\App\Unit;
-use WpPerDim\Models\App\Organism;
 
 /**
- * Indicators
+ * Periods
  *
  * @author JOELINJATOVO Haja
  * @version 1.0.0
  * @since 1.0.0
  */
-class Indicators extends WelcomePage{
+class Periods extends WelcomePage{
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id    = 'wppd-indicators';
-		$this->label = __( 'Indicateurs', 'wppd' );
+		$this->id    = 'wppd-periods';
+		$this->label = __( 'Périodes', 'wppd' );
 		parent::__construct();
 	}
 
@@ -40,50 +37,39 @@ class Indicators extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Period::find($id);
                 }
-                if(!$model){ $model = new Indicator(); }
-                $units = Unit::getAll();
-                $organisms = Organism::getAll();
+                if(!$model){ $model = new Period(); }
                 
-                $template = WPPD_DIR . '/template/admin/indicator/create.php';
+                $template = WPPD_DIR . '/template/admin/period/create.php';
                 break;
             case 'show':
                 $id = 0;
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Period::find($id);
                 }
-                if(!$model){ $model = new Indicator(); }
-                $template = WPPD_DIR . '/template/admin/indicator/show.php';
+                if(!$model){ $model = new Period(); }
+                $template = WPPD_DIR . '/template/admin/period/show.php';
                 break;
             case 'delete':
                 $id = 0;
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Period::find($id);
                     if($model){
                         $model->delete(); 
                     }
                 }
-                
-                /* render list */
-                $indicators = Indicator::getAll();
-                $models = [];
-                foreach($indicators as $indicator){
-                    $models[] = Indicator::fromWp($indicator);
-                }
-                $template = WPPD_DIR . '/template/admin/indicator/list.php';
+                /** list all */
+                $models = Period::getAll(0, 'order', 'ASC');
+                $template = WPPD_DIR . '/template/admin/period/list.php';
                 break;
             default:
-                $indicators = Indicator::getAll();
-                $models = [];
-                foreach($indicators as $indicator){
-                    $models[] = Indicator::fromWp($indicator);
-                }
-                $template = WPPD_DIR . '/template/admin/indicator/list.php';
+                $models = Period::getAll(0, 'order', 'ASC');
+                $template = WPPD_DIR . '/template/admin/period/list.php';
                 break;
         }
         
@@ -109,18 +95,15 @@ class Indicators extends WelcomePage{
                 $model = null;
                 if( isset($_GET['id']) ) {
                     $id = (int) $_GET['id'];
-                    $model = Indicator::find($id);
+                    $model = Period::find($id);
                 }
-                if(!$model){ $model = new Indicator(); }
+                if(!$model){ $model = new Period(); }
                 
-                if(isset($_POST['indicator-title'])){
-                    $model->title = $_POST['indicator-title'];
-                    $model->description = $_POST['indicator-description'];
-                    $model->unit_id = $_POST['indicator-unit'];
-                    $model->organism_id = $_POST['indicator-organism'];
-                    $model->graph = $_POST['indicator-graph'];
+                if(isset($_POST['period-title'])){
+                    $model->title = $_POST['period-title'];
+                    $model->order = $_POST['period-order']??0;
+                    $model->group = $_POST['period-group']??'';
                     $model->save();
-                    
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }
                 

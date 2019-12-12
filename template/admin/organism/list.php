@@ -15,9 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <table class="wp-list-table widefat fixed striped tags">
                 <thead>
                     <tr>
-                        <th scope="col" id="id" class="manage-column column-id column-primary sortable desc"><a href=""><span><?php echo __( 'Id', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="id" class="manage-column column-id column-primary sortable desc" style="width: 100px;"><a href=""><span><?php echo __( 'Id', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Nom', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="slug" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Libellé', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
 
@@ -25,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php foreach($models as $item): ?>
                         <?php $model = \WpPerDim\Models\App\Unit::fromWp($item); ?>
                         <tr id="tag-<?php echo $model->getPkValue(); ?>" class="level-0">
-                            <td class="slug column-id" data-colname="<?php echo __( 'Id', 'wppd' ); ?>">#<code><?php echo $model->id; ?></code></td>
+                            <td class="slug column-id" data-colname="<?php echo __( 'Id', 'wppd' ); ?>" style="width: 100px;">#<code><?php echo $model->id; ?></code></td>
                             <td class="name column-name has-row-actions column-primary" data-colname="<?php echo __( 'Nom', 'wppd' ); ?>"><strong>
                                 <a class="row-title" href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=edit&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Modifier «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>"><?php echo $model->title; ?></a></strong><br>
                                 <div class="row-actions">
@@ -34,16 +33,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <span class="view"><a href="<?php echo esc_url( admin_url( 'admin.php?page=wppd-organisms&action=show&id=' . esc_attr( $model->getPkValue() ) ) ); ?>" aria-label="<?php echo sprintf( __( 'Voir «&nbsp;%s&nbsp;»', 'wppd' ), $model->title); ?>">Afficher</a></span>
                                 </div>
                             </td>
-                            <td class="slug column-slug" data-colname="<?php echo __( 'Libellé', 'wppd' ); ?>"><?php echo $model->label; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
 
                 <tfoot>
                     <tr>
-                        <th scope="col" class="manage-column column-id column-primary sortable desc"><a href=""><span><?php echo __( 'Id', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-id column-primary sortable desc" style="width: 100px;"><a href=""><span><?php echo __( 'Id', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-name column-primary sortable desc"><a href=""><span><?php echo __( 'Nom', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-slug sortable desc"><a href=""><span><?php echo __( 'Libellé', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>
             </table>

@@ -18,9 +18,10 @@ class Menus implements HooksInterface{
     public function hooks(){
         add_action( "admin_menu", array($this, 'admin_menu') );
         add_action( "admin_menu", array($this, 'dashboard_menu') );
-        add_action( "admin_menu", array($this, 'organisms_menu') );
         add_action( "admin_menu", array($this, 'units_menu') );
+        add_action( "admin_menu", array($this, 'periods_menu') );
         add_action( "admin_menu", array($this, 'indicators_menu') );
+        add_action( "admin_menu", array($this, 'organisms_menu') );
         add_action( "admin_menu", array($this, 'datas_menu') );
     }
     
@@ -40,6 +41,11 @@ class Menus implements HooksInterface{
     
     public function units_menu(){
         $page = add_submenu_page('wppd', __( 'Liste: Unités', 'wppd' ) , __( 'Unités', 'wppd' ), 'manage_options', 'wppd-units', array($this, "units_page"), null, 0);
+        add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
+    }
+    
+    public function periods_menu(){
+        $page = add_submenu_page('wppd', __( 'Liste: Périodes', 'wppd' ) , __( 'Périodes', 'wppd' ), 'manage_options', 'wppd-periods', array($this, "periods_page"), null, 0);
         add_action( 'load-' . $page, array( $this, 'welcome_page_init' ) );
     }
     
@@ -91,6 +97,10 @@ class Menus implements HooksInterface{
     }
     
     public function units_page(){
+        Welcome::output();
+    }
+    
+    public function periods_page(){
         Welcome::output();
     }
     

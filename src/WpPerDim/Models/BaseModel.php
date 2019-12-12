@@ -331,7 +331,7 @@ class BaseModel {
         
         $pk = static::getPk();
         $table_name = $wpdb->prefix.static::$_table;
-        $sql = $wpdb->prepare('SELECT '.$pk.' FROM '.$table_name.' WHERE '.$key.' = %s LIMIT 1;', $value);
+        $sql = $wpdb->prepare('SELECT '.$pk.' FROM '.$table_name.' WHERE `'.$key.'` = %s LIMIT 1;', $value);
         $results = $wpdb->get_results($sql);
         if(is_array($results) && isset($results[0])){
             return $results[0]->$pk;
@@ -349,7 +349,7 @@ class BaseModel {
         
         $pk = static::getPk();
         $table_name = $wpdb->prefix.static::$_table;
-        $sql = $wpdb->prepare('SELECT * FROM '.$table_name.' WHERE '.$pk.' =%d LIMIT 1;', $id);
+        $sql = $wpdb->prepare('SELECT * FROM '.$table_name.' WHERE `'.$pk.'` =%d LIMIT 1;', $id);
         $results = $wpdb->get_results($sql);
         if(is_array($results) && isset($results[0])){
             return static::fromWp($results[0]);
@@ -382,7 +382,7 @@ class BaseModel {
     public static function getFirstBy($key, $value){
         global $wpdb;
         $table_name = $wpdb->prefix.static::$_table;
-        $sql = $wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE '.$key.' = %s LIMIT 1;', $value);
+        $sql = $wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE `'.$key.'` = %s LIMIT 1;', $value);
         $results = $wpdb->get_results($sql);
         if(is_array($results) && isset($results[0])){
             return static::fromWp($results[0]);
@@ -401,7 +401,7 @@ class BaseModel {
         $table_name = $wpdb->prefix.static::$_table;
         $sql = 'SELECT * FROM '.$table_name;
         if($order_by & $order){
-            $sql .= ' ORDER BY '.$order_by.' '.$order;
+            $sql .= ' ORDER BY `'.$order_by.'` '.$order;
         }
         if($limit>0){
             $sql .= ' LIMIT '.$limit;

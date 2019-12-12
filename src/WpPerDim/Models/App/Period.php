@@ -30,7 +30,6 @@ class Period extends BaseModel{
         'id',
         'title',
         'order',
-        'indicator_id',
         'group',
     ];
     
@@ -42,10 +41,6 @@ class Period extends BaseModel{
             $result->delete(); 
         }
         parent::delete();
-    }
-    
-    public function getIndicator(){
-        return Indicator::find((int) $this->indicator_id);
     }
     
     public function getResults(){

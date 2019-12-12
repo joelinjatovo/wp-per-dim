@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <th scope="col" id="unit" class="manage-column column-unit sortable desc"><a href=""><span><?php echo __( 'Unité', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="organism" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="graph" class="manage-column column-graph sortable desc"><a href=""><span><?php echo __( 'Graphe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" id="posts" class="manage-column column-posts num sortable desc"><a href=""><span><?php echo __( 'Périodes', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
                 <tbody id="the-list" data-wp-lists="list:tag">
@@ -38,14 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <td class="unit column-unit" data-colname="<?php echo __( 'Unité', 'wppd' ); ?>"><?php $unit = $model->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
                             <td class="unit column-organism" data-colname="<?php echo __( 'Organisme', 'wppd' ); ?>"><?php $organism = $model->getOrganism(); echo $organism ? $organism->title : __('Non renseigné', 'wppd') ?></td>
                             <td class="graph column-graph" data-colname="<?php echo __( 'Graphe', 'wppd' ); ?>"><?php echo $model->graph; ?></td>
-                            <td class="posts column-posts" data-colname="<?php echo __( 'Périodes', 'wppd' ); ?>">
-                                
-                                <?php $periods = []; ?>
-                                <?php foreach($model->getPeriods() as $period): ?>
-                                    <?php $periods[] = '<span class="period-item"><span class="period-title">'.$period->title.'</span></span>'; ?>
-                                <?php endforeach; ?>
-                                <span><?php echo implode($periods, ' | '); ?></span>
-                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -56,7 +47,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <th scope="col" class="manage-column column-unit sortable desc"><a href=""><span><?php echo __( 'Unité', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-graph sortable desc"><a href=""><span><?php echo __( 'Graphe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
-                        <th scope="col" class="manage-column column-posts num sortable desc"><a href=""><span><?php echo __( 'Périodes', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>
             </table>

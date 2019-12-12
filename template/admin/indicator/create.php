@@ -46,50 +46,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p></p>
         </div>
         <div class="form-field term-parent-wrap">
-            <label for="indicator-unit"><?php echo __( 'Periode de suivi de l\'indicateur', 'wppd' ); ?></label>
-            <div class="repeatable-wrapper">
-                <div class="repeatable">
-                    <table class="wrapper" width="100%">
-                        <tbody class="container">
-                            <tr class="template row">
-                                <td width="80%">
-                                    <input type="hidden" name="indicator-periods[{{row-count-placeholder}}][id]" />
-                                    <input type="text" name="indicator-periods[{{row-count-placeholder}}][title]" />
-                                </td>
-                                <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
-                            </tr>
-                            <?php $periods = $model->getPeriods(); ?>
-                            <?php if( count($periods) > 0 ): ?>
-                                <?php foreach($periods as $key => $period): ?>
-                                    <tr class="row">
-                                        <td width="80%">
-                                            <input type="hidden" name="indicator-periods[<?php echo $key; ?>][id]" value="<?php echo $period->getPkValue(); ?>" />
-                                            <input type="text" name="indicator-periods[<?php echo $key; ?>][title]" value="<?php echo $period->title; ?>" />
-                                        </td>
-                                        <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr class="row">
-                                    <td width="80%">
-                                        <input type="hidden" name="indicator-periods[0][id]" value="" />
-                                        <input type="text" name="indicator-periods[0][title]" value="" />
-                                    </td>
-                                    <td width="10%"><button type="button" class="remove" style="color: red;"><?php echo __( 'Supprimer', 'wppd' ); ?></button></td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td width="10%" colspan="3"><button type="button" class="add"><?php echo __( 'Ajouter', 'wppd' ); ?></button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-            <p></p>
-        </div>
-        <div class="form-field term-parent-wrap">
             <label for="indicator-graph"><?php echo __( 'Type de graphe de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-graph" id="indicator-graph" class="postform" style="min-width: 300px;">
                 <option value="-1"><?php echo __( 'Sélectionnez un type de graphe', 'wppd' ); ?></option>
