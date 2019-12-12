@@ -26,6 +26,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p><?php echo __( 'La description n’est pas très utilisée par défaut, cependant de plus en plus de thèmes l’affichent.', 'wppd' ); ?></p>
         </div>
         <div class="form-field term-parent-wrap">
+            <label for="indicator-type"><?php echo __( 'Type de l\'indicateur', 'wppd' ); ?></label>
+            <select name="indicator-type" id="indicator-type" class="postform" style="min-width: 300px;">
+                <option class="level-0" value="cf" <?php selected('cf', $model->type, true); ?>>CF</option>
+                <option class="level-0" value="km" <?php selected('km', $model->type, true); ?>>KM</option>
+            </select>
+            <p></p>
+        </div>
+        <div class="form-field term-parent-wrap">
             <label for="indicator-unit"><?php echo __( 'Unité de mesure de l\'indicateur', 'wppd' ); ?></label>
             <select name="indicator-unit" id="indicator-init" class="postform" style="min-width: 300px;">
                 <option value="-1"><?php echo __( 'Aucune unité', 'wppd' ); ?></option>

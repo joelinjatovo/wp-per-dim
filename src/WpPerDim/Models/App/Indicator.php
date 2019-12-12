@@ -31,6 +31,7 @@ class Indicator extends BaseModel{
         'title',
         'description',
         'graph',
+        'type',
         'unit_id',
         'organism_id',
     ];

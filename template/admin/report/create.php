@@ -35,14 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p></p>
         </div>
         <div class="form-field term-parent-wrap">
-            <label for="report-type"><?php echo __( 'Type', 'wppd' ); ?></label>
-                <select name="report-type" id="report-type" class="postform" style="min-width: 300px;">
-                    <option class="level-0" value="cf" <?php selected('cf', $model->type, true); ?>>CF</option>
-                    <option class="level-0" value="km" <?php selected('km', $model->type, true); ?>>KM</option>
-                </select>
-                <p></p>
-        </div>
-        <div class="form-field term-parent-wrap">
             <label for="report-results"><?php echo __( 'Periodes et Valeurs', 'wppd' ); ?></label>
             <div class="results-wrapper" id="report-results">
                 <table class="wrapper" width="100%">

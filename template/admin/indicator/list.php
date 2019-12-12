@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <th scope="col" id="description" class="manage-column column-description sortable desc"><a href=""><span><?php echo __( 'Description', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="unit" class="manage-column column-unit sortable desc"><a href=""><span><?php echo __( 'Unité', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="organism" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" id="Type" class="manage-column column-graph sortable desc"><a href=""><span><?php echo __( 'Type', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" id="graph" class="manage-column column-graph sortable desc"><a href=""><span><?php echo __( 'Graphe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <td class="description column-description" data-colname="<?php echo __( 'Description', 'wppd' ); ?>"><?php echo $model->description; ?></td>
                             <td class="unit column-unit" data-colname="<?php echo __( 'Unité', 'wppd' ); ?>"><?php $unit = $model->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
                             <td class="unit column-organism" data-colname="<?php echo __( 'Organisme', 'wppd' ); ?>"><?php $organism = $model->getOrganism(); echo $organism ? $organism->title : __('Non renseigné', 'wppd') ?></td>
+                            <td class="graph column-type" data-colname="<?php echo __( 'Type', 'wppd' ); ?>"><?php echo $model->type; ?></td>
                             <td class="graph column-graph" data-colname="<?php echo __( 'Graphe', 'wppd' ); ?>"><?php echo $model->graph; ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -46,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <th scope="col" class="manage-column column-description sortable desc"><a href=""><span><?php echo __( 'Description', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-unit sortable desc"><a href=""><span><?php echo __( 'Unité', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-organism sortable desc"><a href=""><span><?php echo __( 'Organisme', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
+                        <th scope="col" class="manage-column column-type sortable desc"><a href=""><span><?php echo __( 'Type', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                         <th scope="col" class="manage-column column-graph sortable desc"><a href=""><span><?php echo __( 'Graphe', 'wppd' ); ?></span><span class="sorting-indicator"></span></a></th>
                     </tr>
                 </tfoot>

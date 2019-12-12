@@ -29,7 +29,6 @@ class Report extends BaseModel{
     protected static $_fields = [
         'id',
         'title',
-        'type',
         'link',
         'indicator_id',
     ];
