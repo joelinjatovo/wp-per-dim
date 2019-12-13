@@ -36,6 +36,10 @@ class Organism extends BaseModel{
     * delete item
     */
     public function delete(){
+        foreach($this->getUnits() as $unit){
+            $unit->delete(); 
+        }
+        
         foreach($this->getIndicators() as $indicator){
             $indicator->delete(); 
         }
