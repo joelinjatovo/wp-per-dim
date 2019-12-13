@@ -3,11 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="container">
+<div class="container wppd-container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 m-2">
             <div>
-                <label>Indicateurs</label>
+                <h5>Indicateurs</h5>
                 <div class="indicators">
                     <select class="select-indicator">
                         <?php foreach($indicators as $indicator): ?>
@@ -17,16 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 m-2">
             <div>
-                <label>Periods</label>
+                <h5>Periods</h5>
                 <div class="period-buttons">
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 m-2">
             <div id="chartdiv" style="width: 100%; height 400px;"></div>
         </div>
     </div>

@@ -5,11 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <table class="table wppd-table table-dashboard-km">
+        <div class="col-md-12 mt-5">
+            <table class="table table-sm table-bordered table-hover wppd-table table-dashboard-cf">
                 <thead>
                     <tr>
-                        <th colspan="3"><h4><?php _e('KM Dashboard', 'wppd'); ?></h4></th>
+                        <th colspan="3" scope="col"><h5 class="m-0"><?php _e('KM Dashboard', 'wppd'); ?></h5></th>
                     </tr>
                 </thead>
                 <tbody class="items">
