@@ -136,7 +136,6 @@ class Shortcode implements HooksInterface{
 			'orderby'  => 'rand',
 			'order'    => 'DESC',
 			'organism' => '0',
-			'type'     => 'cf', // cf|km
         );
         
         $attributes = shortcode_atts($default, (array) $atts);
@@ -149,26 +148,23 @@ class Shortcode implements HooksInterface{
         }
         
         $indicators = [];
-        if(is_array($items)){
+        if( is_array( $items ) ){
             foreach($items as $item){
                 $indicator = Indicator::fromWp($item);
-
-                /*
+                
                 $periods = [];
-                foreach($indicator->getPeriods() as $period){
-                    $value = 0;
-                    foreach($period->getResults() as $result){
-                        $value += $result->value;
-                    }
+                foreach($indicator->getReports() as $report){
+                    foreach($report->getResults() as $result){
+                        $period = $result->getPeriod();
 
-                    $periods[] = [
-                        'id'    => $period->getPkValue(),
-                        'title' => $period->title,
-                        'period' => $period->title,
-                        'value' => $value,
-                    ];
+                        $periods[] = [
+                            'id'     => $period->getPkValue(),
+                            'title'  => $period->title,
+                            'period' => $period->title,
+                            'value'  => $result->value,
+                        ];
+                    }
                 }
-                */
 
                 $indicators[$indicator->getPkValue()] = [
                     'id'      => $indicator->getPkValue(),
