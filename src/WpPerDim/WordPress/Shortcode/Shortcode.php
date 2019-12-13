@@ -71,7 +71,12 @@ class Shortcode implements HooksInterface{
                     
                     if(isset($results[1])){ $oldValue = $results[1]->value; }
                     
-                    $image = $this->getImage($oldValue, $newValue);
+                    $type = 'graph';
+                    if( ( $newValue <= 1 ) && ( $oldValue <= 1 ) ){
+                        $type = 'default';
+                    }
+                    
+                    $image = $this->getImage($oldValue, $newValue, $type);
                     
                     $datas[$indicator->getPkValue()] = [
                         'id'     => $indicator->getPkValue(),
@@ -103,7 +108,8 @@ class Shortcode implements HooksInterface{
                     $src .= 'same.png';
                 }
             }else{
-                // error
+                // only one period
+                $src .= 'same.png';
             }
         }else{
             if( $newValue == 1 ){

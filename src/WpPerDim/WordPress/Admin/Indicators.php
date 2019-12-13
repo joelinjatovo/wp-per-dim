@@ -118,7 +118,7 @@ class Indicators extends WelcomePage{
                     $model->description = $_POST['indicator-description'];
                     $model->unit_id = $_POST['indicator-unit'];
                     $model->organism_id = $_POST['indicator-organism'];
-                    $model->type = $_POST['indicator-type']??'cf';
+                    $model->type = $_POST['indicator-type'];
                     $model->graph = $_POST['indicator-graph'];
                     $model->save();
                     
