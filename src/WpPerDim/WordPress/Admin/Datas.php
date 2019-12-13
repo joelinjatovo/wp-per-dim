@@ -73,7 +73,7 @@ class Datas extends WelcomePage{
                             $_indicator = Indicator::find((int) $report['indicator']);
                             if($_indicator){
                                 // Save or Update Report
-                                $_report = Report::getFirstBy('indicator_id', $report['indicator']);
+                                $_report = Report::find((int) $report['id']);
                                 if(!$_report){
                                     $_report = new Report();
                                     $_report->title = sprintf(__("Rapport de l'indicateur: %s", 'wppd'), $_indicator->title);

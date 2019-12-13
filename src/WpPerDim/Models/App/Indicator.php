@@ -40,9 +40,6 @@ class Indicator extends BaseModel{
     * delete item
     */
     public function delete(){
-        foreach($this->getPeriods() as $period){
-            $period->delete(); 
-        }
         foreach($this->getReports() as $report){
             $report->delete(); 
         }

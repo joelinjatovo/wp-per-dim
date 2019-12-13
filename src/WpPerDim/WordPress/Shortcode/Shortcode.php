@@ -56,69 +56,35 @@ class Shortcode implements HooksInterface{
         if(is_array($indicators)){
             foreach($indicators as $indicator){
                 $indicator = Indicator::fromWp($indicator);
-
                 $oldValue = -1;
                 $newValue = -1;
                 $type = 'default';
-                foreach($indicator->getPeriods() as $period){
-                    $value = 0;
-                    foreach($period->getResults() as $result){
-                        $report = $result->getReport();
-                        if($report && ( $report->type == $attributes['type'] ) ){
-                            $report = $result->getReport();
-                            $value += $result->value;
-                            if($result->value > 1){
-                                $type = 'graph';
-                            }
-                        }
+                $value = 0;
+                
+                if($indicator->type == $attributes['type']){
+                    $results = [];
+                    foreach($indicator->getReports() as $report){
+                        $results = $report->getLastResults();
                     }
 
-                    if($oldValue<0){
-                        $oldValue = $value;
-                    }else if($newValue<0){
-                        $newValue = $value;
-                    }else{
-                        $oldValue = $newValue;
-                        $newValue = $value;
+                    if(isset($results[0])){ $newValue = $results[0]->value; }
+                    
+                    if(isset($results[1])){ $oldValue = $results[1]->value; }
+                    
+                    $type = 'graph';
+                    if( ( $newValue <= 1 ) && ( $oldValue <= 1 ) ){
+                        $type = 'default';
                     }
+                    
+                    $image = $this->getImage($oldValue, $newValue, $type);
+                    
+                    $datas[$indicator->getPkValue()] = [
+                        'id'     => $indicator->getPkValue(),
+                        'title'  => $indicator->title,
+                        'value'  => $newValue,
+                        'image'  => $image,
+                    ];
                 }
-
-                if($value==0){
-                    continue;
-                }
-
-                $src = WPPD_URL.'assets/images/';
-                if( $type == 'graph' ) {
-                    if( ( $oldValue >= 0 ) && ( $newValue >= 0 ) ) {
-                        if( $oldValue < $newValue ){
-                            // up
-                            $src .= 'up.png';
-                        } else if ( $oldValue > $newValue ) {
-                            // down
-                            $src .= 'down.png';
-                        } else {
-                            // same
-                            $src .= 'same.png';
-                        }
-                    }else{
-                        // error
-                    }
-                }else{
-                    if( $newValue == 1 ){
-                        $src .= 'ok.png';
-                    } else {
-                        $src .= 'nok.png';
-                    }
-                }
-                $image = '<img src="%s" class="graph" alt="statistic">';
-                $image = sprintf($image, $src);
-
-                $datas[$indicator->getPkValue()] = [
-                    'id'     => $indicator->getPkValue(),
-                    'title'  => $indicator->title,
-                    'value'  => $newValue,
-                    'image'  => $image,
-                ];
             }
         }
         
@@ -127,13 +93,43 @@ class Shortcode implements HooksInterface{
         return ob_get_clean();
     }
     
+    public function getImage($oldValue, $newValue, $type = 'graph'){
+        $src = WPPD_URL.'assets/images/';
+        if( $type == 'graph' ) {
+            if( ( $oldValue >= 0 ) && ( $newValue >= 0 ) ) {
+                if( $oldValue < $newValue ){
+                    // up
+                    $src .= 'up.png';
+                } else if ( $oldValue > $newValue ) {
+                    // down
+                    $src .= 'down.png';
+                } else {
+                    // same
+                    $src .= 'same.png';
+                }
+            }else{
+                // only one period
+                $src .= 'same.png';
+            }
+        }else{
+            if( $newValue == 1 ){
+                $src .= 'ok.png';
+            } else {
+                $src .= 'nok.png';
+            }
+        }
+        
+        $image = '<img src="%s" class="graph" alt="statistic">';
+        
+        return sprintf($image, $src);
+    }
+    
     public function graph($atts){
         $default = array(
 			'limit'    => '12',
 			'orderby'  => 'rand',
 			'order'    => 'DESC',
 			'organism' => '0',
-			'type'     => 'cf', // cf|km
         );
         
         $attributes = shortcode_atts($default, (array) $atts);
@@ -146,23 +142,22 @@ class Shortcode implements HooksInterface{
         }
         
         $indicators = [];
-        if(is_array($items)){
+        if( is_array( $items ) ){
             foreach($items as $item){
                 $indicator = Indicator::fromWp($item);
-
+                
                 $periods = [];
-                foreach($indicator->getPeriods() as $period){
-                    $value = 0;
-                    foreach($period->getResults() as $result){
-                        $value += $result->value;
-                    }
+                foreach($indicator->getReports() as $report){
+                    foreach($report->getResults() as $result){
+                        $period = $result->getPeriod();
 
-                    $periods[] = [
-                        'id'    => $period->getPkValue(),
-                        'title' => $period->title,
-                        'period' => $period->title,
-                        'value' => $value,
-                    ];
+                        $periods[] = [
+                            'id'     => $period->getPkValue(),
+                            'title'  => $period->title,
+                            'period' => $period->title,
+                            'value'  => $result->value,
+                        ];
+                    }
                 }
 
                 $indicators[$indicator->getPkValue()] = [

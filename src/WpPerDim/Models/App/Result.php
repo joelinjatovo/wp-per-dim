@@ -46,4 +46,17 @@ class Result extends BaseModel{
         return $this->getPeriod()?$this->getPeriod()->getIndicator():null;
     }
     
+    public static function findOneByReportAndPeriod($report, $period){
+        global $wpdb;
+        $table_1 = $wpdb->prefix.'wppd_results';
+        $sql = $wpdb->prepare(
+            "SELECT t1.* FROM $table_1 t1 "
+                . " WHERE t1.report_id = %d AND t1.period_id = %d",
+            $report->id, 
+            $period->id,
+        );
+        
+        return $wpdb->get_row($sql);
+    }
+    
 }
