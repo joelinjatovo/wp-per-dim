@@ -80,7 +80,7 @@ class Database{
             `title`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `link`         VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `indicator_id` BIGINT(20),
-            INDEX (`indicator_id`)
+            UNIQUE KEY (`indicator_id`)
         );";
         $wpdb->query($sql);
         echo "Error $table_name: $wpdb->last_error \n";

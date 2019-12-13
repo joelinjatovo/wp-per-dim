@@ -152,6 +152,8 @@ class Shortcode implements HooksInterface{
             foreach($items as $item){
                 $indicator = Indicator::fromWp($item);
                 
+                //var_dump($indicator->getReports());
+                
                 $periods = [];
                 foreach($indicator->getReports() as $report){
                     foreach($report->getResults() as $result){
