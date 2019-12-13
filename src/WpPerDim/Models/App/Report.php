@@ -49,8 +49,26 @@ class Report extends BaseModel{
     
     public function getResults(){
         global $wpdb;
-        $table_name = $wpdb->prefix.Result::getTable();
-        $sql = $wpdb->prepare("SELECT * FROM $table_name WHERE `report_id` = %d;", [$this->getPkValue()]);
+        $table_1 = $wpdb->prefix.Result::getTable();
+        $table_2 = $wpdb->prefix.Period::getTable();
+        $sql = $wpdb->prepare("SELECT t1.* FROM $table_1 t1 LEFT JOIN $table_2 t2 ON t2.id = t1.`period_id` WHERE t1.`report_id` = %d ORDER BY t2.`order` ASC;", [$this->getPkValue()]);
+        $results = $wpdb->get_results($sql);
+        if(is_array($results)){
+            $output = [];
+            foreach($results as $result){
+                $output[] = Result::fromWp($result);
+            }
+            return $output;
+        }else{
+            return [];
+        }
+    }
+    
+    public function getLastResults($limit = 2){
+        global $wpdb;
+        $table_1 = $wpdb->prefix.Result::getTable();
+        $table_2 = $wpdb->prefix.Period::getTable();
+        $sql = $wpdb->prepare("SELECT t1.* FROM $table_1 t1 LEFT JOIN $table_2 t2 ON t2.id = t1.`period_id` WHERE t1.`report_id` = %d ORDER BY t2.`order` ASC LIMIT $limit;", [$this->getPkValue()]);
         $results = $wpdb->get_results($sql);
         if(is_array($results)){
             $output = [];
