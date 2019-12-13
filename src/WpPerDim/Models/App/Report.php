@@ -78,4 +78,19 @@ class Report extends BaseModel{
         return $output;
     }
     
+    public static function findOneByOrganismAndIndicator($organism, $indicator){
+        global $wpdb;
+        $table_1 = $wpdb->prefix.'wppd_reports';
+        $table_2 = $wpdb->prefix.'wppd_indicators';
+        $sql = $wpdb->prepare(
+            "SELECT t1.* FROM $table_1 t1 "
+                . " LEFT JOIN $table_2 t2 ON t1.indicator_id = t2.id "
+                . " WHERE t2.organism_id = %d AND t1.indicator_id = %d",
+            $organism->id, 
+            $indicator->id,
+        );
+        
+        return $wpdb->get_row($sql);
+    }
+    
 }

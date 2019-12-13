@@ -22,14 +22,8 @@ class AjaxController extends BaseController{
     }
     
     public function selectOrganism(){
-        if ( isset( $_POST['report_id'] ) ){
-            $report_id   = \wp_unslash( $_POST['report_id'] );
+        if ( isset( $_POST['organism_id'] ) ){
             $organism_id = \wp_unslash( $_POST['organism_id'] );
-            
-            $report = false;
-            if( $report_id ){
-                $report = Report::find($report_id);
-            }
             
             $organism = new Organism();
             if( $organism_id ){
@@ -51,13 +45,31 @@ class AjaxController extends BaseController{
                     </tr>
                 </thead>
                 <?php // Result => Period/Report => Indicator ?>
-                <?php foreach($indicators as $indicator) : ?>
+                <?php foreach($indicators as $key => $indicator) : ?>
                     <tr>
+                        <input type="hidden" name="reports[<?php echo $key; ?>][indicator]" value="<?php echo $indicator->id; ?>">
+
+                        <?php $report = Report::findOneByOrganismAndIndicator($organism, $indicator); ?>
+                        <?php if($report) : ?>
+                            <input type="hidden" name="reports[<?php echo $key; ?>][report]" value="<?php echo $report->id; ?>">
+                        <?php else: ?>
+                            <input type="hidden" name="reports[<?php echo $key; ?>][report]" value="0">
+                        <?php endif; ?>
+                        
                         <td><?php echo $indicator->title; ?></td>
-                        <?php foreach($periods as $period) : ?>
+                        <?php foreach($periods as $key2 => $period) : ?>
+                            <?php if($report) { $result = Result::findOneByReportAndPeriod($report, $period); } else { $result = false; } ?>
                             <td>
-                                <input type="number" name="results[][value]" placeholder="<?php echo sprintf(__( 'Valeur en %s', 'wppd' ), $period->title); ?>">
-                           </td>
+                                <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][period]" value="<?php echo $period->id; ?>">
+                                
+                                <?php if($result) : ?>
+                                    <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][result]" value="<?php echo $result->id; ?>">
+                                <?php else: ?>
+                                    <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][result]" value="0">
+                                <?php endif; ?>
+                                
+                                <input type="number" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][value]" placeholder="<?php echo sprintf(__( 'Valeur en %s', 'wppd' ), $period->title); ?>">
+                            </td>
                         <?php endforeach; ?>
                         <td><?php $unit = $indicator->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
                         <td><?php echo $indicator->type; ?></td>
