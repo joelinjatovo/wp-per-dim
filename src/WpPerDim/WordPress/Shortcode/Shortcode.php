@@ -60,6 +60,8 @@ class Shortcode implements HooksInterface{
                 $oldValue = -1;
                 $newValue = -1;
                 $type = 'default';
+                $value = 0;
+                /*
                 foreach($indicator->getPeriods() as $period){
                     $value = 0;
                     foreach($period->getResults() as $result){
@@ -82,6 +84,7 @@ class Shortcode implements HooksInterface{
                         $newValue = $value;
                     }
                 }
+                */
 
                 if($value==0){
                     continue;
@@ -150,6 +153,7 @@ class Shortcode implements HooksInterface{
             foreach($items as $item){
                 $indicator = Indicator::fromWp($item);
 
+                /*
                 $periods = [];
                 foreach($indicator->getPeriods() as $period){
                     $value = 0;
@@ -164,6 +168,7 @@ class Shortcode implements HooksInterface{
                         'value' => $value,
                     ];
                 }
+                */
 
                 $indicators[$indicator->getPkValue()] = [
                     'id'      => $indicator->getPkValue(),
