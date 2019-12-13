@@ -49,26 +49,26 @@ class AjaxController extends BaseController{
                     <tr>
                         <input type="hidden" name="reports[<?php echo $key; ?>][indicator]" value="<?php echo $indicator->id; ?>">
 
-                        <?php $report = Report::findOneByOrganismAndIndicator($organism, $indicator); ?>
+                        <?php $report = Report::getFirstBy('indicator_id', $indicator->id);; ?>
                         <?php if($report) : ?>
-                            <input type="hidden" name="reports[<?php echo $key; ?>][report]" value="<?php echo $report->id; ?>">
+                            <input type="hidden" name="reports[<?php echo $key; ?>][id]" value="<?php echo $report->id; ?>">
                         <?php else: ?>
-                            <input type="hidden" name="reports[<?php echo $key; ?>][report]" value="0">
+                            <input type="hidden" name="reports[<?php echo $key; ?>][id]" value="0">
                         <?php endif; ?>
                         
                         <td><?php echo $indicator->title; ?></td>
                         <?php foreach($periods as $key2 => $period) : ?>
                             <?php if($report) { $result = Result::findOneByReportAndPeriod($report, $period); } else { $result = false; } ?>
                             <td>
-                                <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][period]" value="<?php echo $period->id; ?>">
+                                <input type="hidden" name="reports[<?php echo $key; ?>][results][<?php echo $key2; ?>][period]" value="<?php echo $period->id; ?>">
                                 
                                 <?php if($result) : ?>
-                                    <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][result]" value="<?php echo $result->id; ?>">
+                                    <input type="hidden" name="reports[<?php echo $key; ?>][results][<?php echo $key2; ?>][id]" value="<?php echo $result->id; ?>">
                                 <?php else: ?>
-                                    <input type="hidden" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][result]" value="0">
+                                    <input type="hidden" name="reports[<?php echo $key; ?>][results][<?php echo $key2; ?>][id]" value="0">
                                 <?php endif; ?>
                                 
-                                <input type="number" name="reports[<?php echo $key; ?>][data][<?php echo $key2; ?>][value]" placeholder="<?php echo sprintf(__( 'Valeur en %s', 'wppd' ), $period->title); ?>">
+                                <input type="number" name="reports[<?php echo $key; ?>][results][<?php echo $key2; ?>][value]" placeholder="<?php echo sprintf(__( 'Valeur en %s', 'wppd' ), $period->title); ?>" value="<?php echo $result ? $result->value : 0; ?>">
                             </td>
                         <?php endforeach; ?>
                         <td><?php $unit = $indicator->getUnit(); echo $unit ? $unit->title : __('Non renseigné', 'wppd') ?></td>
