@@ -26,7 +26,7 @@ class Menus implements HooksInterface{
     }
     
     public function admin_menu(){
-        add_menu_page( __( 'WpPerDim', 'wppd' ) , __( 'WpPerDim', 'wppd' ), 'manage_options', 'wppd', null, plugins_url( 'wp-per-dim/assets/images/icon.png' ), 2);
+        add_menu_page( __( 'WpPerDim', 'wppd' ) , __( 'WpPerDim', 'wppd' ), 'manage_options', 'wppd', null, WPPD_URL .'/assets/images/icon.png', 2);
     }
     
     public function dashboard_menu(){
