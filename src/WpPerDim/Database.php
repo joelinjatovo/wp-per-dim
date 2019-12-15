@@ -11,11 +11,11 @@ namespace WpPerDim;
 class Database{
     
     public function saveOptions(){
-        update_option('enable_wp_nonce_validation', 1);
+        //update_option('enable_wp_nonce_validation', 1);
     }
     
     public function unsaveOptions(){
-        delete_option('enable_wp_nonce_validation');
+        //delete_option('enable_wp_nonce_validation');
     }
     
     public function install()
@@ -39,7 +39,7 @@ class Database{
             `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
             `title`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `label`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
-            `organism_id`     BIGINT(20),
+            `organism_id` BIGINT(20),
             INDEX (`organism_id`)
         );";
         $wpdb->query($sql);
@@ -50,10 +50,10 @@ class Database{
             `id`          BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
             `title`       VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `description` LONGTEXT     COLLATE utf8mb4_unicode_520_ci,
-            `type`         VARCHAR(100) COLLATE utf8mb4_unicode_520_ci,
+            `type`        VARCHAR(100) COLLATE utf8mb4_unicode_520_ci,
             `graph`       VARCHAR(100) COLLATE utf8mb4_unicode_520_ci,
             `unit_id`     BIGINT(20),
-            `organism_id`     BIGINT(20),
+            `organism_id` BIGINT(20),
             INDEX (`unit_id`),
             INDEX (`type`),
             INDEX (`organism_id`)
@@ -87,9 +87,9 @@ class Database{
 
         $table_name = $wpdb->prefix . "wppd_results";	   		
         $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
-            `id`           BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-            `title`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
-            `value`        VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `id`        BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+            `title`     VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
+            `value`     VARCHAR(255) COLLATE utf8mb4_unicode_520_ci,
             `report_id` BIGINT(20),
             `period_id` BIGINT(20),
             INDEX (`report_id`),
@@ -102,6 +102,7 @@ class Database{
         
         $log = ob_get_contents();
         ob_end_clean();
+        
         $file = WPPD_DIR . "log/activation.log";
         if(file_exists($file)){
             $current = file_get_contents($file);	
