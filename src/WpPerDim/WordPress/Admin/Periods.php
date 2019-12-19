@@ -101,8 +101,8 @@ class Periods extends WelcomePage{
                 
                 if(isset($_POST['period-title'])){
                     $model->title = $_POST['period-title'];
-                    $model->order = $_POST['period-order']??0;
-                    $model->group = $_POST['period-group']??'';
+                    $model->order = $_POST['period-order']?$_POST['period-order']:0;
+                    $model->group = $_POST['period-group']?$_POST['period-group']:'';
                     $model->save();
                     Welcome::add_message(__('Votre modification a été bien enregistré.', 'nexway'));
                 }

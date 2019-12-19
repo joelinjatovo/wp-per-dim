@@ -50,7 +50,7 @@ class Result extends BaseModel{
         global $wpdb;
         $table_1 = $wpdb->prefix.'wppd_results';
         $sql = $wpdb->prepare(
-            "SELECT t1.* FROM $table_1 t1 "
+            "SELECT t1.* FROM $table_1 AS t1 "
                 . " WHERE t1.report_id = %d AND t1.period_id = %d",
             $report->id, 
             $period->id
