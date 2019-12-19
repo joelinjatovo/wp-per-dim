@@ -53,7 +53,7 @@ class Result extends BaseModel{
             "SELECT t1.* FROM $table_1 t1 "
                 . " WHERE t1.report_id = %d AND t1.period_id = %d",
             $report->id, 
-            $period->id,
+            $period->id
         );
         
         return $wpdb->get_row($sql);
