@@ -18,8 +18,8 @@ class Ajax implements HooksInterface{
      * @see WpPerDim\Interfaces\HooksInterface
      */
     public function hooks(){
-        global $WpPerDim;
-        $controller = new AjaxController($WpPerDim->view);
+        global $wppd;
+        $controller = new AjaxController($wppd->view);
 
         add_action('wp_ajax_select_organism', array($controller, 'selectOrganism'));
     }
