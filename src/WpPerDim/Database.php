@@ -117,6 +117,7 @@ class Database{
     }   
     
     public function uninstall() {
+        return;
         global $wpdb;
         $table_names = [
             $wpdb->prefix . 'wppd_organisms',
