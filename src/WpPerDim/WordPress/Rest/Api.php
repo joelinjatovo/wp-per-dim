@@ -23,8 +23,8 @@ class Api implements HooksInterface{
     }
     
     public function rest_api_init(){
-        global $WpPerDim;
-        $controller = new ApiController($WpPerDim->view);
+        global $wppd;
+        $controller = new ApiController($wppd->view);
         
         register_rest_route(self::END_POINT, '/game/(?P<id>\d+)', array(
             'methods' => 'GET',
