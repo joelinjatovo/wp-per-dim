@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="row">
         <div class="col-md-12 m-2">
             <div>
-                <h5>Indicateurs</h5>
+                <h5><?php _e('Indicators', 'wppd'); ?></h5>
                 <div class="indicators">
                     <select class="select-indicator">
                         <?php foreach($indicators as $indicator): ?>
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
         <div class="col-md-12 m-2">
             <div>
-                <h5>Periods</h5>
+                <h5><?php _e('Periods', 'wppd'); ?></h5>
                 <div class="period-buttons">
                 </div>
             </div>
